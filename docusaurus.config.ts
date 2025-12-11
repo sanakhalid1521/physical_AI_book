@@ -108,15 +108,15 @@ const config: Config = {
           items: [
             {
               label: 'Introduction',
-              to: '/docs/chapters/01-introduction/01-foundations-of-physical-ai',
+              to: '/docs/chapters/introduction/foundations-of-physical-ai',
             },
             {
               label: 'Perception Systems',
-              to: '/docs/chapters/02-perception/01-sensor-integration',
+              to: '/docs/chapters/perception/sensor-integration',
             },
             {
               label: 'Decision Making',
-              to: '/docs/chapters/03-control/01-motion-planning',
+              to: '/docs/chapters/control/motion-planning',
             },
           ],
         },

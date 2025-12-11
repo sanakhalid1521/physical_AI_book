@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '@theme/Layout';
 import Login from '../components/Auth/Login';
-import { useAuth } from '../components/Auth/AuthContext';
+import { AuthContext } from '../components/Auth/AuthContext';
 
 function LoginPage(): JSX.Element {
-  const { isAuthenticated } = useAuth();
+  // Safe way to access auth context that won't throw during static generation
+  const authContext = useContext(AuthContext);
+  const isAuthenticated = authContext?.isAuthenticated || false;
 
   if (isAuthenticated) {
     return (

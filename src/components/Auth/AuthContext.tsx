@@ -150,3 +150,6 @@ export const useAuth = () => {
   }
   return context;
 };
+
+// Export the context for direct use in special cases (like during static generation)
+export { AuthContext };
