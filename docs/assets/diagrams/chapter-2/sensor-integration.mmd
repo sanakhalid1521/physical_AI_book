@@ -1,0 +1,42 @@
+# Sensor Integration Diagram
+
+## Multi-Sensor Architecture
+
+```mermaid
+graph TB
+    A[Multi-Sensor System] --> B[Visual Sensors]
+    A --> C[Auditory Sensors]
+    A --> D[Tactile Sensors]
+    A --> E[Proprioceptive Sensors]
+
+    B --> B1[RGB Cameras]
+    B --> B2[Depth Cameras]
+    B --> B3[Thermal Cameras]
+
+    C --> C1[Microphones]
+    C --> C2[Audio Processors]
+
+    D --> D1[Force/Torque Sensors]
+    D --> D2[Tactile Skin]
+    D --> D3[Pressure Sensors]
+
+    E --> E1[IMU]
+    E --> E2[Joint Encoders]
+    E --> E3[Motor Current Sensors]
+```
+
+## Sensor Fusion Process
+
+```mermaid
+graph LR
+    A[Raw Sensor Data] --> B[Preprocessing]
+    B --> C[Temporal Alignment]
+    C --> D[Spatial Registration]
+    D --> E[Data Association]
+    E --> F[Fusion Algorithm]
+    F --> G[Fused Estimate]
+    G --> H[Post-processing]
+
+    style A fill:#ffcccc
+    style G fill:#ccffcc
+```

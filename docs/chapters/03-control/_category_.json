@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 3: Decision Making and Control",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Motion planning, behavioral control systems, and learning-based control for humanoid robots"
+  }
+}

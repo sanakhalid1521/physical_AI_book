@@ -4,27 +4,481 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Light Magenta color palette for Physical AI & Humanoid Robotics Textbook */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Primary Colors - Light Magenta Theme */
+  --light-magenta-bg: #FCE7F3;        /* Soft light-magenta background */
+  --magenta-accent: #DB2777;          /* Magenta-purple accents */
+  --lavender-highlight: #F9A8D4;      /* Lavender-pink highlights */
+  --navbar-contrast: #BE185D;         /* Darker contrasting magenta for navbar */
+  --footer-deep: #9D174D;            /* Deeper complementary shade for footer */
+
+  /* Background Colors */
+  --magenta-bg-light: #FDF2F8;
+  --magenta-bg-primary: #FAE8F1;
+  --magenta-bg-secondary: #FCE7F3;
+  --magenta-bg-tertiary: #FEEEF7;
+
+  /* Text Colors */
+  --magenta-text-dark: #7C2D5D;
+  --magenta-text-medium: #9D174D;
+  --magenta-text-light: #BE185D;
+  --magenta-text-accent: #DB2777;
+
+  /* Button Colors */
+  --magenta-button-primary: #DB2777;
+  --magenta-button-secondary: #BE185D;
+  --magenta-button-tertiary: #9D174D;
+
+  /* Card and UI Elements */
+  --magenta-card-bg: #FFFFFF;
+  --magenta-border: #F9A8D4;
+  --magenta-shadow: rgba(219, 39, 119, 0.1);
+
+  /* Override default Infima variables with light magenta colors */
+  --ifm-color-primary: #DB2777;
+  --ifm-color-primary-dark: #BE185D;
+  --ifm-color-primary-darker: #9D174D;
+  --ifm-color-primary-darkest: #7C2D5D;
+  --ifm-color-primary-light: #F9A8D4;
+  --ifm-color-primary-lighter: #FCE7F3;
+  --ifm-color-primary-lightest: #FDF2F8;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(219, 39, 119, 0.2);
+
+  /* Heading colors */
+  --ifm-h1-color: #7C2D5D;
+  --ifm-h2-color: #7C2D5D;
+  --ifm-h3-color: #9D174D;
+  --ifm-h4-color: #9D174D;
+  --ifm-h5-color: #BE185D;
+  --ifm-h6-color: #BE185D;
+
+  /* Link colors */
+  --ifm-link-color: #DB2777;
+  --ifm-link-hover-color: #9D174D;
+
+  /* Button colors */
+  --ifm-button-background-color: #DB2777;
+  --ifm-button-border-color: #DB2777;
+  --ifm-button-color: #FFFFFF;
+
+  /* Navbar and footer colors */
+  --ifm-navbar-background-color: #BE185D;
+  --ifm-footer-background-color: #9D174D;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #F9A8D4;
+  --ifm-color-primary-dark: #FCE7F3;
+  --ifm-color-primary-darker: #FAE8F1;
+  --ifm-color-primary-darkest: #FDF2F8;
+  --ifm-color-primary-light: #DB2777;
+  --ifm-color-primary-lighter: #BE185D;
+  --ifm-color-primary-lightest: #9D174D;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Dark mode overrides */
+  --ifm-navbar-background-color: #7C2D5D;
+  --ifm-footer-background-color: #5D1D4D;
+}
+
+/* Custom styles for homepage elements */
+.hero--primary {
+  background: linear-gradient(135deg, #FDF2F8 0%, #FAE8F1 50%, #FCE7F3 100%) !important;
+}
+
+.button--primary {
+  background-color: #DB2777 !important;
+  border-color: #DB2777 !important;
+  color: #FFFFFF !important;
+}
+
+.button--primary:hover {
+  background-color: #BE185D !important;
+  border-color: #BE185D !important;
+  color: #FFFFFF !important;
+}
+
+.button--secondary {
+  background-color: transparent !important;
+  border-color: #DB2777 !important;
+  color: #DB2777 !important;
+}
+
+.button--secondary:hover {
+  background-color: #DB2777 !important;
+  border-color: #DB2777 !important;
+  color: #FFFFFF !important;
+}
+
+/* Card styles */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  border: 1px solid var(--magenta-border) !important;
+  background-color: var(--magenta-card-bg) !important;
+}
+
+.card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 40px var(--magenta-shadow) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--magenta-text-dark);
+  font-weight: 600;
+}
+
+/* Links */
+a {
+  color: var(--ifm-link-color);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--ifm-link-hover-color);
+  text-decoration: underline;
+}
+
+/* Backgrounds */
+.hero {
+  background-color: var(--magenta-bg-primary);
+}
+
+.container {
+  background-color: var(--magenta-bg-secondary);
+}
+
+/* Highlight colors */
+:root {
+  --ifm-color-info: #F9A8D4;
+  --ifm-color-success: #FCE7F3;
+  --ifm-color-warning: #FDF2F8;
+  --ifm-color-danger: #BE185D;
+}
+
+/* Code blocks */
+.code-block {
+  background-color: var(--magenta-bg-light) !important;
+  border-left: 4px solid #DB2777 !important;
+}
+
+/* Tables */
+.table {
+  background-color: var(--magenta-card-bg);
+  border: 1px solid var(--magenta-border);
+}
+
+.table th {
+  background-color: #FAE8F1;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #F9A8D4;
+  background-color: var(--magenta-bg-light);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Body background */
+body {
+  background-color: var(--light-magenta-bg);
+}
+
+/* Paragraph text - black and bold */
+p {
+  color: #000000 !important; /* Black text */
+  font-weight: bold !important; /* Bold text */
+}
+
+/* Ensure all content paragraphs are black and bold */
+.markdown p,
+.docusaurus-markdown-content p,
+article p,
+.content p {
+  color: #000000 !important;
+  font-weight: bold !important;
+}
+
+/* Footer text - black instead of white */
+.footer {
+  background-color: var(--footer-deep) !important;
+  color: #000000 !important; /* Black text instead of white */
+}
+
+.footer__title,
+.footer__link,
+.footer__item,
+.footer__copyright {
+  color: #000000 !important; /* Black text for all footer elements */
+}
+
+/* Make sure links in footer are readable */
+.footer a {
+  color: #7C2D5D !important; /* Use dark magenta for links to maintain readability */
+}
+
+.footer a:hover {
+  color: #BE185D !important; /* Lighter magenta on hover */
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--navbar-contrast) !important;
+  color: white !important;
+}
+
+.navbar__brand,
+.navbar__item,
+.navbar__link,
+.navbar__title,
+.navbar__toggle,
+.navbar__logo__img {
+  color: white !important;
+}
+
+.navbar__link:hover {
+  color: #FCE7F3 !important; /* Lighter magenta on hover */
+}
+
+/* Footer */
+.footer {
+  background-color: var(--footer-deep) !important;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 8px;
+}
+
+/* Sidebar */
+.menu {
+  background-color: var(--magenta-bg-light);
+}
+
+/* Sidebar links */
+.menu__link {
+  color: var(--magenta-text-medium);
+}
+
+.menu__link:hover {
+  background-color: var(--magenta-accent);
+  color: white;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  background-color: var(--magenta-bg-light);
+}
+
+/* Pagination */
+.pagination-nav__link {
+  border: 1px solid var(--magenta-border);
+}
+
+.pagination-nav__link:hover {
+  background-color: var(--magenta-bg-light);
+}
+
+/* Search bar */
+.navbar__search-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.navbar__search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Authentication components */
+.auth-container {
+  background-color: var(--magenta-card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--magenta-shadow);
+  border: 1px solid var(--magenta-border);
+}
+
+.auth-container h2 {
+  color: var(--magenta-text-dark);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--magenta-text-medium);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--magenta-border);
+  border-radius: 4px;
+  background-color: var(--magenta-bg-light);
+  color: var(--magenta-text-dark);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--magenta-accent);
+  box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.2);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--magenta-button-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--magenta-button-secondary);
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--magenta-text-medium);
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: var(--magenta-button-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0.25rem;
+}
+
+.auth-switch button:hover {
+  color: var(--magenta-button-tertiary);
+}
+
+.alert {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.alert-error {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+}
+
+.auth-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.user-display {
+  font-weight: 500;
+}
+
+.logout-button {
+  background-color: var(--magenta-button-tertiary);
+  color: white;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.logout-button:hover {
+  background-color: #7c2d5d;
+}
+
+.login-link, .signup-link {
+  color: white;
+  text-decoration: underline;
+}
+
+.login-link:hover, .signup-link:hover {
+  color: #f3e8ff;
+}
+
+/* Divider for social login */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--magenta-border);
+}
+
+.divider-text {
+  padding: 0 0.75rem;
+  color: var(--magenta-text-medium);
+  font-size: 0.875rem;
+}
+
+/* Social login buttons */
+.social-login {
+  margin-bottom: 1.5rem;
+}
+
+.google-login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: white;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.google-login-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #c6c9ce;
+}
+
+.google-icon {
+  margin-right: 0.5rem;
 }

@@ -1,0 +1,42 @@
+# Behavioral Control Diagram
+
+## Finite State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Walking: Move Command
+    Walking --> AvoidingObstacle: Obstacle Detected
+    AvoidingObstacle --> Walking: Obstacle Cleared
+    Walking --> Grasping: At Object
+    Grasping --> ReturningHome: Object Grasped
+    ReturningHome --> Idle: At Destination
+    Idle --> EmergencyStop: Safety Violation
+    EmergencyStop --> Idle: Resume Command
+```
+
+## Behavior Tree Structure
+
+```mermaid
+graph TD
+    A{Root Selector} --> B{Task Sequence}
+    A --> C{Safety Monitor}
+    A --> D{Idle Behavior}
+
+    B --> B1[Move to Object]
+    B --> B2[Grasp Object]
+    B --> B3[Move to Destination]
+    B --> B4[Release Object]
+
+    B1 --> B1a[Path Planning]
+    B1 --> B1b[Navigation]
+    B1 --> B1c[Arrival Check]
+
+    C --> C1[Check Proximity]
+    C --> C2[Check Forces]
+    C --> C3[Check Stability]
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+```

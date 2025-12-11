@@ -1,0 +1,289 @@
+---
+title: "Lesson 2.1: Sensor Integration and Data Processing"
+sidebar_label: "Sensor Integration and Data Processing"
+description: "Understanding different types of sensors for humanoid robots, sensor fusion techniques, and real-time data processing"
+keywords: ["robotics sensors", "sensor fusion", "data processing", "imu", "lidar"]
+---
+
+# Lesson 2.1: Sensor Integration and Data Processing
+
+## Introduction
+
+Humanoid robots require sophisticated sensor systems to perceive and interact with their environment effectively. This lesson explores the various types of sensors used in humanoid robotics, techniques for integrating multiple sensor inputs, and methods for processing sensor data in real-time to enable intelligent behavior.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Identify and classify different types of sensors used in humanoid robots
+- Explain the principles of sensor fusion for improved environmental perception
+- Implement basic sensor data processing algorithms
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic understanding of sensors and their applications
+- Programming skills in Python
+- Fundamental concepts of signal processing
+
+## Theoretical Foundation
+
+Humanoid robots employ multiple sensor types to gather information about their environment and internal state. These sensors must be carefully integrated and their data processed to create a coherent understanding of the world.
+
+### Key Concepts
+
+- **Sensor Modalities**: Different types of sensors providing various forms of environmental information
+- **Sensor Fusion**: Combining data from multiple sensors to improve accuracy and robustness
+- **Real-time Processing**: Processing sensor data within strict time constraints for responsive behavior
+
+## Practical Application
+
+Let's explore sensor integration and data processing with practical examples:
+
+### Example 1: Basic Sensor Data Processing
+
+```python
+import numpy as np
+import time
+from dataclasses import dataclass
+from typing import List, Tuple
+
+@dataclass
+class SensorReading:
+    timestamp: float
+    sensor_type: str
+    values: List[float]
+
+class SensorFusion:
+    def __init__(self):
+        self.readings = {}
+        self.weights = {
+            'imu': 0.7,
+            'camera': 0.8,
+            'lidar': 0.9,
+            'force': 0.6
+        }
+
+    def add_reading(self, reading: SensorReading):
+        if reading.sensor_type not in self.readings:
+            self.readings[reading.sensor_type] = []
+        self.readings[reading.sensor_type].append(reading)
+
+    def get_fused_position(self) -> Tuple[float, float, float]:
+        # Simple weighted average fusion for position
+        positions = []
+        weights = []
+
+        # Example: Get position from different sensors
+        if 'lidar' in self.readings and self.readings['lidar']:
+            lidar_pos = self.readings['lidar'][-1].values[:3]  # x, y, z
+            positions.append(lidar_pos)
+            weights.append(self.weights['lidar'])
+
+        if 'imu' in self.readings and self.readings['imu']:
+            imu_pos = self.readings['imu'][-1].values[:3]  # x, y, z
+            positions.append(imu_pos)
+            weights.append(self.weights['imu'])
+
+        if positions:
+            weighted_pos = np.average(positions, axis=0, weights=weights)
+            return tuple(weighted_pos)
+        else:
+            return (0.0, 0.0, 0.0)
+
+# Example usage
+fusion = SensorFusion()
+
+# Simulate sensor readings
+lidar_reading = SensorReading(
+    timestamp=time.time(),
+    sensor_type='lidar',
+    values=[1.2, 0.8, 0.5, 0.1]  # x, y, z, confidence
+)
+fusion.add_reading(lidar_reading)
+
+imu_reading = SensorReading(
+    timestamp=time.time(),
+    sensor_type='imu',
+    values=[1.1, 0.9, 0.4, 0.2]  # x, y, z, confidence
+)
+fusion.add_reading(imu_reading)
+
+fused_position = fusion.get_fused_position()
+print(f"Fused position: {fused_position}")
+```
+
+### Example 2: Real-time Sensor Processing Pipeline
+
+```python
+import threading
+import queue
+import time
+
+class SensorProcessor:
+    def __init__(self):
+        self.sensor_queue = queue.Queue()
+        self.processing_thread = threading.Thread(target=self._process_sensors, daemon=True)
+        self.running = True
+        self.processing_thread.start()
+
+    def add_sensor_data(self, sensor_type, data):
+        """Add sensor data to processing queue"""
+        timestamp = time.time()
+        self.sensor_queue.put((sensor_type, data, timestamp))
+
+    def _process_sensors(self):
+        """Process sensor data in real-time"""
+        while self.running:
+            try:
+                sensor_type, data, timestamp = self.sensor_queue.get(timeout=0.1)
+
+                # Process the sensor data
+                processed_data = self._process_sensor_data(sensor_type, data)
+
+                # Apply time-based filtering
+                if time.time() - timestamp < 0.05:  # 50ms timeout
+                    self._handle_processed_data(sensor_type, processed_data)
+                else:
+                    print(f"Warning: {sensor_type} data too old, discarding")
+
+            except queue.Empty:
+                continue
+
+    def _process_sensor_data(self, sensor_type, data):
+        """Process raw sensor data based on sensor type"""
+        if sensor_type == 'camera':
+            # Apply image processing
+            return self._process_camera_data(data)
+        elif sensor_type == 'lidar':
+            # Apply LIDAR processing
+            return self._process_lidar_data(data)
+        elif sensor_type == 'imu':
+            # Apply IMU processing
+            return self._process_imu_data(data)
+        else:
+            return data
+
+    def _process_camera_data(self, data):
+        # Simulate camera processing
+        return {"processed_image": data, "features": ["object1", "object2"]}
+
+    def _process_lidar_data(self, data):
+        # Simulate LIDAR processing
+        return {"distances": data, "obstacles": [1, 3, 5]}
+
+    def _process_imu_data(self, data):
+        # Simulate IMU processing
+        return {"orientation": data[:4], "acceleration": data[4:7]}
+
+    def _handle_processed_data(self, sensor_type, processed_data):
+        """Handle processed sensor data"""
+        print(f"Processed {sensor_type} data: {processed_data}")
+
+    def stop(self):
+        """Stop the processing thread"""
+        self.running = False
+        self.processing_thread.join()
+
+# Example usage
+processor = SensorProcessor()
+
+# Simulate incoming sensor data
+processor.add_sensor_data('camera', [255, 128, 64])
+processor.add_sensor_data('lidar', [1.0, 2.0, 3.0, 4.0])
+processor.add_sensor_data('imu', [0.1, 0.2, 0.3, 1.0, 9.8, 0.0, 0.1])
+
+# Let it process for a bit
+time.sleep(1)
+processor.stop()
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+For sensor processing, you'll need to install relevant libraries:
+
+```bash
+pip install numpy scipy
+```
+
+### Step 2: Implementation
+
+1. Define sensor interfaces and data structures
+2. Implement sensor fusion algorithms
+3. Create real-time processing pipelines
+4. Add filtering and validation mechanisms
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing with simulated sensor data
+- Verifying sensor fusion accuracy
+- Measuring processing latency
+
+## Hands-on Exercise
+
+Implement a basic sensor fusion system:
+
+1. **Task 1**: Create data structures for different sensor types
+2. **Task 2**: Implement a simple sensor fusion algorithm
+3. **Task 3**: Add real-time processing capabilities
+
+### Exercise Requirements
+
+- Support at least 3 different sensor types
+- Implement basic filtering for sensor data
+- Include timestamp validation
+
+## Verification
+
+How to test and validate the implementation:
+
+- Verify that sensor fusion improves accuracy over individual sensors
+- Test with various sensor failure scenarios
+- Measure real-time performance requirements
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Sensor data arriving at different rates causing synchronization issues
+  - Solution: Implement timestamp-based synchronization and interpolation
+- **Issue 2**: Sensor fusion producing inconsistent results
+  - Solution: Validate sensor calibration and adjust fusion weights
+- **Issue 3**: High processing latency affecting real-time performance
+  - Solution: Optimize algorithms and consider parallel processing
+
+## Real-World Relevance
+
+Sensor integration is crucial in humanoid robotics:
+- Navigation and obstacle avoidance
+- Balance and posture control
+- Object recognition and manipulation
+- Human-robot interaction
+
+## Safety Considerations
+
+When working with sensor systems:
+- Implement sensor failure detection and fallback mechanisms
+- Ensure sensor data is validated before use in control systems
+- Consider the impact of sensor noise and uncertainty
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of Kalman filters for sensor fusion
+- Research into deep learning approaches for sensor processing
+- Exploration of event-based sensor processing
+- Investigation of bio-inspired sensor systems
+
+## Summary
+
+This lesson covered the fundamentals of sensor integration and data processing in humanoid robots, including various sensor types, fusion techniques, and real-time processing considerations.
+
+## Knowledge Check
+
+- Question 1: What are the main types of sensors used in humanoid robots?
+- Question 2: How does sensor fusion improve robot perception?
+- Question 3: What are the challenges in real-time sensor processing?

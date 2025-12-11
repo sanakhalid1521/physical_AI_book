@@ -1,0 +1,230 @@
+---
+title: "Lesson 1.2: Humanoid Robot Architecture"
+sidebar_label: "Humanoid Robot Architecture"
+description: "Overview of humanoid robot components, kinematics, sensors, actuators, and control systems"
+keywords: ["humanoid robotics", "robot architecture", "actuators", "sensors"]
+---
+
+# Lesson 1.2: Humanoid Robot Architecture
+
+## Introduction
+
+Humanoid robots represent one of the most complex and challenging domains in robotics, requiring sophisticated integration of multiple systems to achieve human-like form and function. This lesson explores the key components, kinematic structures, and control systems that enable humanoid robots to perform complex tasks in human environments.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Identify the main components of humanoid robot architecture
+- Explain the principles of humanoid kinematics and degrees of freedom
+- Describe the role of sensors and actuators in humanoid robot systems
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic robotics concepts and terminology
+- Understanding of mechanical systems and kinematics
+- Basic knowledge of control systems
+
+## Theoretical Foundation
+
+Humanoid robots are designed to operate in human environments and potentially interact with humans, which requires anthropomorphic form and functionality. The architecture of these systems involves complex integration of mechanical, electrical, and software components.
+
+### Key Concepts
+
+- **Degrees of Freedom (DOF)**: The number of independent movements a robot can perform, typically 30+ for full humanoid systems
+- **Kinematic Chains**: Series of connected rigid bodies that define the robot's structure and movement capabilities
+- **Actuators**: Devices that provide motion, typically servomotors, hydraulic, or pneumatic systems
+
+## Practical Application
+
+Let's examine the basic architecture of a humanoid robot system:
+
+### Example 1: Basic Joint Control
+
+```python
+class Joint:
+    def __init__(self, name, min_angle, max_angle, default_position=0):
+        self.name = name
+        self.min_angle = min_angle
+        self.max_angle = max_angle
+        self.current_position = default_position
+        self.target_position = default_position
+
+    def move_to(self, angle):
+        # Constrain angle within limits
+        constrained_angle = max(self.min_angle, min(self.max_angle, angle))
+        self.target_position = constrained_angle
+        return f"Moving {self.name} to {constrained_angle} degrees"
+
+    def get_position(self):
+        return self.current_position
+
+class HumanoidLimb:
+    def __init__(self, name, joints):
+        self.name = name
+        self.joints = joints
+
+    def move_to_position(self, joint_angles):
+        movements = []
+        for joint_name, angle in joint_angles.items():
+            for joint in self.joints:
+                if joint.name == joint_name:
+                    movements.append(joint.move_to(angle))
+        return movements
+
+# Create a simple arm with 3 joints
+shoulder = Joint("shoulder", -90, 90)
+elbow = Joint("elbow", 0, 180)
+wrist = Joint("wrist", -45, 45)
+
+arm = HumanoidLimb("right_arm", [shoulder, elbow, wrist])
+movements = arm.move_to_position({"shoulder": 30, "elbow": 90, "wrist": 0})
+print(movements)
+```
+
+### Example 2: Sensor Integration
+
+```python
+import time
+import random
+
+class RobotSensor:
+    def __init__(self, name, sensor_type):
+        self.name = name
+        self.sensor_type = sensor_type
+
+    def read(self):
+        # Simulate sensor reading with some noise
+        return random.uniform(0, 100)
+
+class HumanoidRobot:
+    def __init__(self):
+        # Define sensors
+        self.sensors = {
+            "imu": RobotSensor("inertial_measurement_unit", "imu"),
+            "camera": RobotSensor("stereo_camera", "camera"),
+            "force": RobotSensor("force_torque_sensors", "force_torque"),
+            "lidar": RobotSensor("lidar", "lidar")
+        }
+
+    def get_sensor_data(self):
+        data = {}
+        for name, sensor in self.sensors.items():
+            data[name] = sensor.read()
+        return data
+
+    def balance_control(self):
+        # Simple balance control using IMU data
+        imu_data = self.sensors["imu"].read()
+        # Implement basic balance correction based on IMU reading
+        if imu_data > 50:
+            correction = "leaning_right"
+        else:
+            correction = "leaning_left"
+        return f"Balance correction: {correction}"
+
+robot = HumanoidRobot()
+sensor_data = robot.get_sensor_data()
+balance_correction = robot.balance_control()
+
+print(f"Sensor data: {sensor_data}")
+print(f"Balance correction: {balance_correction}")
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+For this lesson, you'll need to understand basic robotics simulation. We'll use a simple representation:
+
+```python
+# Basic humanoid robot structure
+class HumanoidRobot:
+    def __init__(self):
+        self.torso = {"height": 0.8, "weight": 15}
+        self.head = {"pitch": 0, "yaw": 0, "roll": 0}
+        self.left_arm = HumanoidLimb("left_arm", [])
+        self.right_arm = HumanoidLimb("right_arm", [])
+        self.left_leg = HumanoidLimb("left_leg", [])
+        self.right_leg = HumanoidLimb("right_leg", [])
+```
+
+### Step 2: Implementation
+
+1. Define the kinematic structure of each limb
+2. Implement joint constraints and limits
+3. Add sensor integration for environmental awareness
+4. Create basic control algorithms
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing joint movement ranges
+- Verifying sensor data accuracy
+- Checking for mechanical interference between components
+
+## Hands-on Exercise
+
+Design a simplified humanoid robot architecture:
+
+1. **Task 1**: Create a kinematic model with at least 12 degrees of freedom
+2. **Task 2**: Implement basic sensor integration for balance control
+3. **Task 3**: Design a simple gait pattern for walking
+
+### Exercise Requirements
+
+- Define at least 4 main body parts (head, torso, arms, legs)
+- Include at least 3 sensor types
+- Implement joint constraints and safety limits
+
+## Verification
+
+How to test and validate the implementation:
+
+- Simulate basic movements to verify kinematic correctness
+- Test sensor integration with simulated data
+- Validate that the system respects joint limits and safety constraints
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Joint movements exceeding physical limits
+  - Solution: Implement proper joint constraints and safety checks
+- **Issue 2**: Sensor data conflicts causing instability
+  - Solution: Implement sensor fusion and filtering algorithms
+- **Issue 3**: Mechanical interference between body parts
+  - Solution: Add collision detection and avoidance algorithms
+
+## Real-World Relevance
+
+Humanoid robots are used in various applications:
+- Research platforms like Honda's ASIMO and Boston Dynamics' Atlas
+- Service robots in healthcare and hospitality
+- Human-robot interaction studies
+- Disaster response and rescue operations
+
+## Safety Considerations
+
+When working with humanoid robot systems:
+- Implement multiple safety layers and emergency stops
+- Ensure proper mechanical design to prevent injury
+- Consider the ethical implications of humanoid robot deployment
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of advanced actuator technologies (series elastic actuators)
+- Research into human-like motion planning algorithms
+- Exploration of bio-inspired control systems
+
+## Summary
+
+This lesson covered the fundamental architecture of humanoid robots, including mechanical structure, sensors, actuators, and control systems. Understanding this architecture is essential for developing effective control algorithms and applications.
+
+## Knowledge Check
+
+- Question 1: What are the main components of a humanoid robot?
+- Question 2: How do degrees of freedom affect a robot's capabilities?
+- Question 3: What role do sensors play in humanoid robot control?

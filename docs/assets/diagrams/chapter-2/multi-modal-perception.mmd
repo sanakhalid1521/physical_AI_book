@@ -1,0 +1,47 @@
+# Multi-modal Perception Diagram
+
+## Perception Architecture
+
+```mermaid
+graph TB
+    A[Multi-modal Perception] --> B[Visual Processing]
+    A --> C[Auditory Processing]
+    A --> D[Tactile Processing]
+    A --> E[Somatosensory Processing]
+
+    B --> B1[Object Recognition]
+    B --> B2[Scene Understanding]
+    B --> B3[Visual Tracking]
+
+    C --> C1[Sound Source Localization]
+    C --> C2[Speech Recognition]
+    C --> C3[Audio Classification]
+
+    D --> D1[Contact Detection]
+    D --> D2[Force Estimation]
+    D --> D3[Texture Recognition]
+
+    E --> E1[Proprioception]
+    E --> E2[Balance Sense]
+    E --> E3[Limb Position]
+```
+
+## Cross-modal Integration
+
+```mermaid
+graph LR
+    A[Visual Input] --> F[Cross-modal Fusion]
+    B[Auditory Input] --> F
+    C[Tactile Input] --> F
+    D[Somatosensory Input] --> F
+
+    F --> G[Fused Representation]
+    G --> H[Perceptual Decisions]
+    H --> I[Behavior Generation]
+
+    style A fill:#ffcccc
+    style B fill:#ffcccc
+    style C fill:#ffcccc
+    style D fill:#ffcccc
+    style I fill:#ccffcc
+```

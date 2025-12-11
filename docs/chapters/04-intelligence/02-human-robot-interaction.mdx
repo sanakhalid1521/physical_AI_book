@@ -1,0 +1,485 @@
+---
+title: "Lesson 4.2: Human-Robot Interaction"
+sidebar_label: "Human-Robot Interaction"
+description: "Natural language processing, gesture recognition, social robotics principles, and creating intuitive interfaces for human-robot collaboration"
+keywords: ["human-robot interaction", "social robotics", "natural language", "gesture recognition", "collaboration"]
+---
+
+# Lesson 4.2: Human-Robot Interaction
+
+## Introduction
+
+Human-robot interaction (HRI) is a critical aspect of humanoid robotics that focuses on designing robots that can effectively communicate, collaborate, and interact with humans in natural and intuitive ways. This lesson explores natural language processing, gesture recognition, social robotics principles, and the creation of intuitive interfaces that facilitate human-robot collaboration.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Understand the principles of effective human-robot interaction
+- Implement basic natural language processing for robot communication
+- Apply gesture recognition techniques for intuitive interaction
+- Design social behaviors for humanoid robots
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic understanding of human psychology and communication
+- Programming skills in Python
+- Familiarity with natural language processing concepts
+
+## Theoretical Foundation
+
+Human-robot interaction combines insights from psychology, linguistics, computer science, and robotics to create systems that can understand, communicate with, and work alongside humans effectively. The goal is to make interactions as natural and intuitive as possible.
+
+### Key Concepts
+
+- **Social Robotics**: Designing robots that exhibit appropriate social behaviors
+- **Multimodal Interaction**: Combining speech, gestures, and other communication modalities
+- **Trust and Acceptance**: Building human trust in robotic systems
+
+## Practical Application
+
+Let's explore human-robot interaction techniques with practical examples:
+
+### Example 1: Natural Language Processing for Robot Commands
+
+```python
+import re
+from typing import Dict, List, Tuple, Optional
+from dataclasses import dataclass
+
+@dataclass
+class Command:
+    action: str
+    parameters: Dict[str, str]
+    confidence: float
+
+class SimpleNLU:
+    """Simple Natural Language Understanding system"""
+    def __init__(self):
+        # Define command patterns
+        self.patterns = [
+            # Move commands
+            (r"move\s+(?P<direction>forward|backward|left|right|up|down)\s*(?P<distance>\d+\.?\d*)?\s*(?P<unit>meters|cm|units)?", "move"),
+            (r"go\s+to\s+(?P<location>\w+)", "navigate"),
+            (r"pick\s+up\s+(?P<object>\w+)", "pick_up"),
+            (r"grasp\s+(?P<object>\w+)", "pick_up"),
+            (r"put\s+down\s+(?P<object>\w+)", "put_down"),
+            (r"place\s+(?P<object>\w+)\s+on\s+(?P<surface>\w+)", "place"),
+            (r"wave|greet|hello|hi", "greet"),
+            (r"stop|halt|freeze", "stop"),
+            (r"help|what\scan\syous+do", "help"),
+        ]
+
+        # Define location mappings
+        self.locations = {
+            "kitchen": (5, 0, 0),
+            "living_room": (0, 5, 0),
+            "bedroom": (-5, 0, 0),
+            "office": (0, -5, 0)
+        }
+
+    def parse_command(self, text: str) -> Optional[Command]:
+        """Parse natural language text into robot commands"""
+        text = text.lower().strip()
+
+        for pattern, action_type in self.patterns:
+            match = re.search(pattern, text)
+            if match:
+                params = match.groupdict()
+
+                # Process parameters based on action type
+                if action_type == "move":
+                    direction = params.get('direction', 'forward')
+                    distance = params.get('distance', '1')
+                    unit = params.get('unit', 'meters')
+                    return Command(
+                        action="move",
+                        parameters={
+                            "direction": direction,
+                            "distance": distance,
+                            "unit": unit
+                        },
+                        confidence=0.9
+                    )
+
+                elif action_type == "navigate":
+                    location = params.get('location')
+                    if location in self.locations:
+                        x, y, z = self.locations[location]
+                        return Command(
+                            action="navigate",
+                            parameters={
+                                "location": location,
+                                "x": str(x),
+                                "y": str(y),
+                                "z": str(z)
+                            },
+                            confidence=0.8
+                        )
+
+                elif action_type in ["pick_up", "put_down", "place"]:
+                    return Command(
+                        action=action_type,
+                        parameters={k: v for k, v in params.items() if v is not None},
+                        confidence=0.85
+                    )
+
+                elif action_type in ["greet", "stop", "help"]:
+                    return Command(
+                        action=action_type,
+                        parameters={},
+                        confidence=0.95
+                    )
+
+        # If no pattern matches, return None
+        return None
+
+class RobotResponseGenerator:
+    """Generate appropriate responses for robot interaction"""
+    def __init__(self):
+        self.responses = {
+            "greet": [
+                "Hello! How can I assist you today?",
+                "Hi there! Ready to help.",
+                "Greetings! What would you like me to do?"
+            ],
+            "acknowledge": [
+                "I understand. I'll do that right away.",
+                "Got it. Working on it now.",
+                "Understood. Executing your request."
+            ],
+            "error": [
+                "I'm sorry, I didn't understand that command.",
+                "Could you please rephrase that?",
+                "I'm not sure how to do that. Can you be more specific?"
+            ],
+            "complete": [
+                "Task completed successfully.",
+                "I've finished what you asked me to do.",
+                "Your request has been completed."
+            ]
+        }
+
+    def generate_response(self, intent: str, success: bool = True) -> str:
+        """Generate appropriate response based on intent and success"""
+        if not success:
+            return self.responses["error"][0]
+
+        if intent in self.responses:
+            return self.responses[intent][0]
+        else:
+            return self.responses["acknowledge"][0]
+
+class HRIManager:
+    """Manage human-robot interaction"""
+    def __init__(self):
+        self.nlu = SimpleNLU()
+        self.response_gen = RobotResponseGenerator()
+        self.conversation_history = []
+
+    def process_input(self, user_input: str) -> Tuple[Optional[Command], str]:
+        """Process user input and generate response"""
+        # Parse the command
+        command = self.nlu.parse_command(user_input)
+
+        if command:
+            # Generate acknowledgment response
+            response = self.response_gen.generate_response(command.action)
+            self.conversation_history.append((user_input, command, response))
+            return command, response
+        else:
+            # Generate error response
+            response = self.response_gen.generate_response("error", success=False)
+            self.conversation_history.append((user_input, None, response))
+            return None, response
+
+# Example usage
+hri_manager = HRIManager()
+
+# Test various commands
+test_inputs = [
+    "Move forward 2 meters",
+    "Go to kitchen",
+    "Pick up the red cup",
+    "Hello robot",
+    "Stop immediately",
+    "What can you do"
+]
+
+for user_input in test_inputs:
+    command, response = hri_manager.process_input(user_input)
+    print(f"User: {user_input}")
+    print(f"Robot: {response}")
+    if command:
+        print(f"  -> Command: {command.action}, Params: {command.parameters}")
+    print()
+```
+
+### Example 2: Gesture Recognition and Social Behavior
+
+```python
+import numpy as np
+from typing import Dict, List, Tuple
+from dataclasses import dataclass
+
+@dataclass
+class Gesture:
+    name: str
+    landmark_positions: List[Tuple[float, float, float]]  # x, y, z positions of key landmarks
+    confidence: float
+
+@dataclass
+class SocialBehavior:
+    name: str
+    trigger_conditions: List[str]
+    actions: List[str]
+
+class GestureRecognizer:
+    """Simple gesture recognition system"""
+    def __init__(self):
+        # Define template gestures (simplified as static positions)
+        self.gesture_templates = {
+            "wave": [
+                # Wave gesture template (simplified hand positions over time)
+                [(0.0, 1.2, 0.0), (0.1, 1.2, 0.0), (0.0, 1.2, 0.1), (-0.1, 1.2, 0.0), (0.0, 1.2, -0.1)]
+            ],
+            "point": [
+                # Point gesture template
+                [(0.0, 1.0, 0.0), (0.0, 0.8, 0.2), (0.0, 0.6, 0.4)]
+            ],
+            "come_here": [
+                # Come here gesture (beckoning)
+                [(0.0, 1.0, 0.0), (0.1, 1.0, 0.0), (-0.1, 1.0, 0.0), (0.1, 1.0, 0.0)]
+            ]
+        }
+
+    def recognize_gesture(self, observed_landmarks: List[List[Tuple[float, float, float]]]) -> Optional[Gesture]:
+        """Recognize gesture from observed landmarks"""
+        best_match = None
+        best_score = 0.0
+
+        for template_name, template_sequences in self.gesture_templates.items():
+            for template in template_sequences:
+                # Calculate similarity between observed and template
+                # This is a simplified version - in practice, you'd use more sophisticated techniques
+                if len(observed_landmarks) == len(template):
+                    score = 0
+                    for i in range(len(observed_landmarks)):
+                        obs_pos = np.array(observed_landmarks[i])
+                        temp_pos = np.array(template[i])
+                        distance = np.linalg.norm(obs_pos - temp_pos)
+                        score += max(0, 1.0 - distance)  # Higher score for closer matches
+
+                    avg_score = score / len(observed_landmarks) if observed_landmarks else 0
+                    if avg_score > best_score and avg_score > 0.7:  # Threshold for recognition
+                        best_score = avg_score
+                        best_match = Gesture(
+                            name=template_name,
+                            landmark_positions=observed_landmarks[-1] if observed_landmarks else [(0,0,0)],
+                            confidence=avg_score
+                        )
+
+        return best_match
+
+class SocialBehaviorEngine:
+    """Manage social behaviors based on context"""
+    def __init__(self):
+        self.behaviors = [
+            SocialBehavior(
+                name="greeting",
+                trigger_conditions=["person_approaching", "first_encounter"],
+                actions=["wave", "smile_animation", "greet_vocalization"]
+            ),
+            SocialBehavior(
+                name="attention",
+                trigger_conditions=["person_gesturing", "person_speaking"],
+                actions=["turn_towards_person", "maintain_eye_contact", "acknowledge"]
+            ),
+            SocialBehavior(
+                name="respectful_distance",
+                trigger_conditions=["person_too_close"],
+                actions=["step_back", "display_discomfort", "request_space"]
+            ),
+            SocialBehavior(
+                name="collaboration",
+                trigger_conditions=["task_request", "collaboration_mode"],
+                actions=["move_to_convenient_position", "ready_posture", "await_instructions"]
+            )
+        ]
+
+    def select_behavior(self, context: Dict[str, bool]) -> List[str]:
+        """Select appropriate social behaviors based on context"""
+        selected_actions = []
+
+        for behavior in self.behaviors:
+            # Check if all trigger conditions are met
+            all_conditions_met = all(context.get(cond, False) for cond in behavior.trigger_conditions)
+            if all_conditions_met:
+                selected_actions.extend(behavior.actions)
+
+        return selected_actions
+
+class HumanRobotInteraction:
+    """Main HRI system combining language, gesture, and social behaviors"""
+    def __init__(self):
+        self.gesture_recognizer = GestureRecognizer()
+        self.social_engine = SocialBehaviorEngine()
+        self.hri_manager = HRIManager()  # From previous example
+        self.current_context = {
+            "person_approaching": False,
+            "person_gesturing": False,
+            "person_speaking": False,
+            "person_too_close": False,
+            "task_request": False,
+            "collaboration_mode": False,
+            "first_encounter": True
+        }
+
+    def update_context_with_gesture(self, observed_landmarks: List[List[Tuple[float, float, float]]]):
+        """Update context based on recognized gestures"""
+        gesture = self.gesture_recognizer.recognize_gesture(observed_landmarks)
+
+        if gesture:
+            print(f"Recognized gesture: {gesture.name} (confidence: {gesture.confidence:.2f})")
+
+            # Update context based on gesture
+            if gesture.name == "wave":
+                self.current_context["person_gesturing"] = True
+                # Process as a greeting command
+                command, response = self.hri_manager.process_input("hello")
+                print(f"Robot response: {response}")
+            elif gesture.name == "come_here":
+                self.current_context["task_request"] = True
+                # Process as a navigation command
+                command, response = self.hri_manager.process_input("come to me")
+                print(f"Robot response: {response}")
+
+        return gesture
+
+    def update_context_with_speech(self, speech_text: str):
+        """Update context based on speech input"""
+        command, response = self.hri_manager.process_input(speech_text)
+        self.current_context["person_speaking"] = True
+
+        if command:
+            self.current_context["task_request"] = True
+
+        return command, response
+
+    def execute_social_behaviors(self):
+        """Execute appropriate social behaviors based on current context"""
+        actions = self.social_engine.select_behavior(self.current_context)
+
+        if actions:
+            print(f"Executing social behaviors: {', '.join(actions)}")
+
+        return actions
+
+# Example usage
+hri_system = HumanRobotInteraction()
+
+# Simulate gesture recognition
+print("Simulating gesture recognition...")
+sample_gesture = [[(0.0, 1.2, 0.0), (0.1, 1.2, 0.0), (0.0, 1.2, 0.1), (-0.1, 1.2, 0.0), (0.0, 1.2, -0.1)]]
+hri_system.update_context_with_gesture(sample_gesture)
+
+# Simulate speech interaction
+print("\nSimulating speech interaction...")
+command, response = hri_system.update_context_with_speech("Please move to the kitchen")
+print(f"Command: {command}, Response: {response}")
+
+# Execute social behaviors based on updated context
+print("\nExecuting social behaviors...")
+hri_system.execute_social_behaviors()
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+For human-robot interaction systems, install necessary libraries:
+
+```bash
+pip install numpy
+```
+
+### Step 2: Implementation
+
+1. Define natural language understanding components
+2. Implement gesture recognition algorithms
+3. Create social behavior engines
+4. Integrate multimodal interaction
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing with various natural language inputs
+- Verifying gesture recognition accuracy
+- Measuring user satisfaction with interactions
+
+## Hands-on Exercise
+
+Implement a human-robot interaction system:
+
+1. **Task 1**: Create a natural language understanding system for robot commands
+2. **Task 2**: Implement gesture recognition for intuitive interaction
+3. **Task 3**: Design social behaviors for natural human-robot collaboration
+
+### Exercise Requirements
+
+- Support multiple interaction modalities (speech, gestures)
+- Include context-aware behavior selection
+- Implement appropriate social responses
+
+## Verification
+
+How to test and validate the implementation:
+
+- Test natural language understanding with various phrasings
+- Verify gesture recognition accuracy with sample data
+- Evaluate social behavior appropriateness
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Natural language understanding failing with varied input
+  - Solution: Expand pattern matching and add more robust parsing
+- **Issue 2**: Gesture recognition being unreliable
+  - Solution: Use more sophisticated feature extraction and machine learning
+- **Issue 3**: Social behaviors seeming unnatural or inappropriate
+  - Solution: Add more nuanced context evaluation and behavior selection
+
+## Real-World Relevance
+
+Human-robot interaction is essential in humanoid robotics for:
+- Service applications in homes and businesses
+- Healthcare and assistive robotics
+- Educational and entertainment applications
+- Collaborative work environments
+
+## Safety Considerations
+
+When working with human-robot interaction systems:
+- Ensure appropriate personal space boundaries
+- Implement safety mechanisms for physical interactions
+- Verify that communication is clear and unambiguous
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of advanced natural language processing for HRI
+- Research into affective computing and emotional HRI
+- Exploration of multi-party interaction scenarios
+- Investigation of cultural differences in HRI
+
+## Summary
+
+This lesson covered the fundamentals of human-robot interaction for humanoid robots, including natural language processing, gesture recognition, and social behavior design for intuitive and effective human-robot collaboration.
+
+## Knowledge Check
+
+- Question 1: What are the key components of effective human-robot interaction?
+- Question 2: How does multimodal interaction enhance human-robot communication?
+- Question 3: What factors influence human acceptance of robotic systems?

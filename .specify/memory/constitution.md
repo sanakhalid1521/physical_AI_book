@@ -1,55 +1,69 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 1.0.0 → 1.0.0 (initial creation)
+- Modified principles: None (new constitution)
+- Added sections: All sections added for Physical AI & Humanoid Robotics textbook
+- Removed sections: None
+- Templates requiring updates: N/A (initial creation)
+- Follow-up TODOs: [RATIFICATION_DATE] to be set to actual ratification date
+-->
+
+# Physical AI & Humanoid Robotics Textbook Constitution
+
+## Vision
+To create an accessible, hands-on learning resource that empowers beginners to intermediate learners to understand, build, and experiment with physical AI and humanoid robotics systems through practical, project-based education.
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Hands-On Learning First
+Learning through doing is the foundation of this textbook. Every concept must be accompanied by practical exercises, code examples, and real-world applications. Theory is introduced only to support practical implementation, not as an end in itself. Each chapter must include at least one hands-on project or experiment that readers can complete with accessible hardware/software.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Beginner-to-Intermediate Accessibility
+Content must be structured to accommodate learners from zero to intermediate knowledge levels. Complex topics are broken into digestible, progressive steps with clear prerequisites stated. All technical jargon is defined when first introduced, and concepts build systematically without assuming prior knowledge beyond stated prerequisites.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Docusaurus Documentation Excellence
+All content must follow Docusaurus best practices for documentation: clear navigation, search functionality, versioning, and responsive design. Content is structured with consistent formatting, proper headings hierarchy, cross-references, and integrated code examples. Documentation must be maintainable, extensible, and accessible.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Practical AI & Robotics Integration
+Focus on the intersection of AI and physical systems, emphasizing how AI algorithms control and interact with real hardware. Content must bridge the gap between theoretical AI concepts and their physical implementations in humanoid robots, covering perception, decision-making, and actuation in real-world contexts.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Reproducible Learning Experiences
+All examples, code, and projects must be fully reproducible with documented setup instructions, dependencies, and expected outcomes. Each hands-on section includes step-by-step guidance, troubleshooting tips, and verification methods to ensure learners can successfully complete exercises.
 
-### [PRINCIPLE_6_NAME]
+### VI. Safety and Ethics by Design
+Physical AI and robotics education must include safety considerations and ethical implications from the beginning. Content addresses safety protocols, risk assessment, and ethical considerations in AI and robotics development. Learners are taught responsible development practices and awareness of societal impacts.
 
+## Technical Constraints
 
-[PRINCIPLE__DESCRIPTION]
+### Technology Stack Requirements
+- Platform: Docusaurus v3+ for documentation and content delivery
+- Languages: Python primarily, with C++/ROS for robotics-specific sections
+- Hardware: Focus on accessible platforms (e.g., Raspberry Pi, Arduino,低成本 humanoid platforms like Poppy, NAO)
+- Simulation: Gazebo, Webots, or similar accessible simulation environments
+- Version Control: Git with clear documentation of code examples and exercises
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Content Standards
+- All code examples must be tested and verified to work with specified dependencies
+- Hardware requirements must be achievable with under $500 budget for core projects
+- Content must be accessible to learners with basic programming knowledge
+- All mathematical concepts explained with visual aids and practical examples
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Development Workflow
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Content Creation Process
+- Each chapter follows the hands-on learning principle with practical exercises
+- Code examples are tested in isolated environments before inclusion
+- Peer review required for all technical content accuracy
+- Beta testing with target audience before final publication
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Quality Gates
+- All practical exercises must be verified by independent testers
+- Code examples must include error handling and debugging guidance
+- Content must pass accessibility standards (WCAG 2.1 AA minimum)
+- Technical accuracy verified by domain experts
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution serves as the foundational guide for all content creation and project decisions. All additions, modifications, and extensions to the textbook must align with these principles. Content creators must verify compliance with accessibility, safety, and educational effectiveness standards. Updates to this constitution require documented justification and approval from project maintainers.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-09 | **Last Amended**: 2025-12-09

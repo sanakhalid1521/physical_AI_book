@@ -1,0 +1,47 @@
+# Simulation Environment Diagram
+
+## Architecture
+
+```mermaid
+graph TB
+    A[Simulation Environment] --> B[Physics Engine]
+    A --> C[Robot Model]
+    A --> D[Environment Model]
+    A --> E[Sensor Simulation]
+    A --> F[Control Interface]
+
+    B --> B1[PyBullet]
+    B --> B2[ODE]
+    B --> B3[Mujoco]
+
+    C --> C1[URDF Model]
+    C --> C2[Joint Definitions]
+    C --> C3[Link Properties]
+
+    D --> D1[Objects]
+    D --> D2[Terrain]
+    D --> D3[Lighting]
+
+    E --> E1[Camera Sensors]
+    E --> E2[LIDAR Sensors]
+    E --> E3[IMU Sensors]
+
+    F --> F1[ROS Bridge]
+    F --> F2[API Interface]
+    F --> F3[Real-time Control]
+```
+
+## Simulation Loop
+
+```mermaid
+sequenceDiagram
+    participant C as Controller
+    participant S as Simulator
+    participant R as Robot Model
+
+    C->>S: Send Commands
+    S->>R: Apply Forces/Torques
+    R->>S: Update State
+    S->>C: Return Sensor Data
+    Note over C,S: Repeat at fixed time intervals
+```

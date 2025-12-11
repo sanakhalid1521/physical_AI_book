@@ -1,0 +1,44 @@
+# Computer Vision for Robotics Diagram
+
+## Vision Pipeline
+
+```mermaid
+graph TB
+    A[Image Input] --> B[Preprocessing]
+    B --> C[Feature Detection]
+    C --> D[Feature Matching]
+    D --> E[Object Recognition]
+    E --> F[Scene Understanding]
+    F --> G[Action Planning]
+
+    B --> B1[Noise Reduction]
+    B --> B2[Normalization]
+    B --> B3[Distortion Correction]
+
+    C --> C1[Edge Detection]
+    C --> C2[Corner Detection]
+    C --> C3[Keypoint Detection]
+
+    D --> D1[Template Matching]
+    D --> D2[Descriptor Matching]
+    D --> D3[Geometric Verification]
+
+    E --> E1[Classification]
+    E --> E2[Detection]
+    E --> E3[Segmentation]
+```
+
+## Object Detection Architecture
+
+```mermaid
+graph LR
+    Sub1[Input Image] --> Sub2[Feature Extractor]
+    Sub2 --> Sub3[Region Proposal]
+    Sub3 --> Sub4[ROI Pooling]
+    Sub4 --> Sub5[Classifier]
+    Sub5 --> Sub6[Bounding Box Regressor]
+    Sub6 --> Sub7[Detected Objects]
+
+    style Sub1 fill:#ffcccc
+    style Sub7 fill:#ccffcc
+```

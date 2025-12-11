@@ -1,0 +1,552 @@
+---
+title: "Lesson 4.3: Autonomous Learning and Adaptation"
+sidebar_label: "Autonomous Learning and Adaptation"
+description: "How robots can learn from experience, adapt to new environments, and improve their performance over time"
+keywords: ["autonomous learning", "adaptation", "online learning", "lifelong learning", "robot learning"]
+---
+
+# Lesson 4.3: Autonomous Learning and Adaptation
+
+## Introduction
+
+Autonomous learning and adaptation are essential capabilities for humanoid robots to operate effectively in dynamic and changing environments. This lesson explores how robots can learn from their experiences, adapt to new situations, and continuously improve their performance over time without explicit programming for each scenario.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Understand the principles of autonomous learning in robotics
+- Implement online learning algorithms for continuous adaptation
+- Apply lifelong learning techniques for skill retention and improvement
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic understanding of machine learning concepts
+- Programming skills in Python
+- Fundamentals of reinforcement learning and adaptation
+
+## Theoretical Foundation
+
+Autonomous learning in humanoid robots involves systems that can improve their performance through experience, adapt to new environments, and acquire new skills over time. These systems must balance exploration with exploitation while maintaining previously learned skills.
+
+### Key Concepts
+
+- **Online Learning**: Learning from data as it becomes available in real-time
+- **Lifelong Learning**: Continuously learning new tasks while retaining old knowledge
+- **Transfer Learning**: Applying knowledge from one task to related tasks
+
+## Practical Application
+
+Let's explore autonomous learning and adaptation techniques with practical examples:
+
+### Example 1: Online Learning for Parameter Adaptation
+
+```python
+import numpy as np
+from typing import List, Tuple, Optional, Dict
+import matplotlib.pyplot as plt
+from dataclasses import dataclass
+
+@dataclass
+class Experience:
+    state: np.ndarray
+    action: int
+    reward: float
+    next_state: np.ndarray
+    done: bool
+
+class OnlineLearner:
+    """Online learning system for continuous adaptation"""
+    def __init__(self, feature_dim: int, learning_rate: float = 0.01,
+                 adaptation_threshold: float = 0.1):
+        self.feature_dim = feature_dim
+        self.learning_rate = learning_rate
+        self.adaptation_threshold = adaptation_threshold
+
+        # Initialize weights for linear function approximation
+        self.weights = np.random.normal(0, 0.1, feature_dim)
+
+        # Track performance for adaptation decisions
+        self.performance_history = []
+        self.recent_performance = []
+        self.adaptation_counter = 0
+
+    def extract_features(self, state: np.ndarray) -> np.ndarray:
+        """Extract features from state for learning"""
+        # Simple feature extraction - in practice, this would be more sophisticated
+        features = np.concatenate([
+            state,
+            state ** 2,  # Quadratic features
+            np.sin(state),  # Periodic features
+            [1.0]  # Bias term
+        ])
+        return features
+
+    def predict(self, state: np.ndarray) -> float:
+        """Predict value for given state"""
+        features = self.extract_features(state)
+        return np.dot(self.weights, features)
+
+    def update(self, state: np.ndarray, target: float) -> float:
+        """Update weights based on prediction error"""
+        features = self.extract_features(state)
+        prediction = np.dot(self.weights, features)
+        error = target - prediction
+
+        # Update weights using stochastic gradient descent
+        self.weights += self.learning_rate * error * features
+
+        return abs(error)
+
+    def should_adapt(self) -> bool:
+        """Determine if adaptation is needed based on performance"""
+        if len(self.recent_performance) < 10:
+            return False
+
+        # Calculate recent performance trend
+        recent_avg = np.mean(self.recent_performance[-10:])
+        historical_avg = np.mean(self.recent_performance[:-10]) if len(self.recent_performance) > 10 else recent_avg
+
+        # Adapt if performance has degraded significantly
+        if recent_avg > historical_avg + self.adaptation_threshold:
+            return True
+
+        return False
+
+    def record_performance(self, error: float):
+        """Record performance for adaptation monitoring"""
+        self.performance_history.append(error)
+        self.recent_performance.append(error)
+
+        # Keep recent performance history manageable
+        if len(self.recent_performance) > 100:
+            self.recent_performance.pop(0)
+
+class AdaptiveController:
+    """Adaptive control system that adjusts parameters based on learning"""
+    def __init__(self):
+        self.base_controller_params = {
+            'kp': 1.0,  # Proportional gain
+            'ki': 0.1,  # Integral gain
+            'kd': 0.05  # Derivative gain
+        }
+        self.current_params = self.base_controller_params.copy()
+        self.performance_monitor = OnlineLearner(feature_dim=10)
+        self.error_history = []
+        self.integral_error = 0.0
+
+    def update_control_params(self, state_error: float, dt: float = 0.01) -> Dict[str, float]:
+        """Adaptively update control parameters based on current performance"""
+        self.error_history.append(state_error)
+
+        # Calculate performance metrics
+        if len(self.error_history) > 10:
+            recent_error = np.mean(np.abs(self.error_history[-10:]))
+        else:
+            recent_error = abs(state_error)
+
+        # Record performance
+        self.performance_monitor.record_performance(recent_error)
+
+        # Check if adaptation is needed
+        if self.performance_monitor.should_adapt():
+            # Adjust parameters based on error characteristics
+            if recent_error > 0.5:  # High error - increase gains
+                adaptation_factor = 1.1
+            elif recent_error < 0.1:  # Low error - decrease gains to reduce oscillation
+                adaptation_factor = 0.9
+            else:  # Moderate error - small adjustments
+                adaptation_factor = 1.0 + 0.05 * np.sign(np.mean(self.error_history[-5:]))
+
+            # Update parameters with bounds checking
+            self.current_params['kp'] = np.clip(
+                self.current_params['kp'] * adaptation_factor,
+                0.1, 5.0
+            )
+            self.current_params['ki'] = np.clip(
+                self.current_params['ki'] * adaptation_factor,
+                0.01, 1.0
+            )
+            self.current_params['kd'] = np.clip(
+                self.current_params['kd'] * adaptation_factor * 0.9,  # Derivative gain changes more conservatively
+                0.01, 0.5
+            )
+
+        return self.current_params.copy()
+
+    def compute_control_signal(self, error: float, dt: float = 0.01) -> float:
+        """Compute control signal using current adaptive parameters"""
+        # Update integral term
+        self.integral_error += error * dt
+
+        # Calculate derivative term
+        if len(self.error_history) > 1:
+            derivative_error = (error - self.error_history[-2]) / dt
+        else:
+            derivative_error = 0.0
+
+        # Apply PID control with adaptive parameters
+        proportional = self.current_params['kp'] * error
+        integral = self.current_params['ki'] * self.integral_error
+        derivative = self.current_params['kd'] * derivative_error
+
+        control_signal = proportional + integral + derivative
+
+        return control_signal
+
+# Example usage
+adaptive_controller = AdaptiveController()
+
+# Simulate a control scenario
+print("Simulating adaptive control...")
+errors = [1.0]  # Start with some initial error
+control_signals = []
+
+for t in range(100):
+    current_error = errors[-1]
+
+    # Update adaptive parameters based on current error
+    params = adaptive_controller.update_control_params(current_error)
+
+    # Compute control signal
+    control_signal = adaptive_controller.compute_control_signal(current_error)
+    control_signals.append(control_signal)
+
+    # Simulate system response (simplified)
+    next_error = current_error * 0.95 - control_signal * 0.1 + np.random.normal(0, 0.01)
+    errors.append(next_error)
+
+print(f"Final error: {errors[-1]:.4f}")
+print(f"Final control parameters: {params}")
+```
+
+### Example 2: Lifelong Learning System
+
+```python
+import numpy as np
+from typing import List, Dict, Tuple, Optional
+from collections import defaultdict
+import random
+
+class ExperienceReplayBuffer:
+    """Buffer for storing and replaying experiences to prevent catastrophic forgetting"""
+    def __init__(self, capacity: int = 10000):
+        self.capacity = capacity
+        self.buffer = []
+        self.position = 0
+
+    def push(self, experience: Experience):
+        """Add experience to buffer"""
+        if len(self.buffer) < self.capacity:
+            self.buffer.append(None)
+
+        self.buffer[self.position] = experience
+        self.position = (self.position + 1) % self.capacity
+
+    def sample(self, batch_size: int) -> List[Experience]:
+        """Sample random experiences from buffer"""
+        return random.sample(self.buffer, min(batch_size, len(self.buffer)))
+
+    def __len__(self) -> int:
+        return len(self.buffer)
+
+class TaskClassifier:
+    """Classify incoming tasks to determine appropriate learning strategy"""
+    def __init__(self):
+        self.task_models = {}  # Task-specific models
+        self.task_boundaries = {}  # Boundaries between task types
+        self.current_task = "unknown"
+        self.task_confidence = 0.0
+
+    def classify_task(self, state: np.ndarray, action: int, reward: float) -> Tuple[str, float]:
+        """Classify the current task based on state-action-reward pattern"""
+        # Simple task classification based on reward patterns
+        if reward > 0.5:
+            task_type = "positive_reward_task"
+        elif reward < -0.5:
+            task_type = "negative_reward_task"
+        else:
+            task_type = "neutral_task"
+
+        # For this example, return the task type with high confidence
+        return task_type, 0.9
+
+class LifelongLearner:
+    """System for lifelong learning with knowledge retention"""
+    def __init__(self, state_dim: int, action_dim: int):
+        self.state_dim = state_dim
+        self.action_dim = action_dim
+
+        # Separate networks for different tasks
+        self.task_networks = {}
+        self.task_classifiers = {}
+
+        # Experience replay for knowledge retention
+        self.replay_buffer = ExperienceReplayBuffer(capacity=5000)
+
+        # Task classifier
+        self.task_classifier = TaskClassifier()
+
+        # Elastic Weight Consolidation parameters (simplified)
+        self.importance_weights = {}
+        self.saved_weights = {}
+
+        # Performance tracking
+        self.task_performance = defaultdict(list)
+        self.current_task = None
+
+    def _get_network(self, task: str):
+        """Get or create network for specific task"""
+        if task not in self.task_networks:
+            # Create a simple linear network for this task
+            self.task_networks[task] = {
+                'weights': np.random.normal(0, 0.1, (self.state_dim + 1, self.action_dim)),
+                'optimizer_params': {'learning_rate': 0.001}
+            }
+            self.importance_weights[task] = np.zeros((self.state_dim + 1, self.action_dim))
+
+        return self.task_networks[task]
+
+    def _update_importance(self, task: str, state: np.ndarray, action: int):
+        """Update importance weights for preventing forgetting"""
+        network = self._get_network(task)
+
+        # Compute gradient-based importance (simplified)
+        state_with_bias = np.append(state, 1.0)  # Add bias term
+        gradient = state_with_bias[:, np.newaxis] * np.eye(self.action_dim)[action]
+
+        # Update importance weights
+        self.importance_weights[task] += 0.01 * gradient ** 2
+
+    def learn(self, state: np.ndarray, action: int, reward: float,
+              next_state: np.ndarray, done: bool):
+        """Learn from a single experience"""
+        # Classify the current task
+        task, confidence = self.task_classifier.classify_task(state, action, reward)
+
+        # Store experience in replay buffer
+        experience = Experience(state, action, reward, next_state, done)
+        self.replay_buffer.push(experience)
+
+        # Update current task if confidence is high enough
+        if confidence > 0.7 and task != self.current_task:
+            self.current_task = task
+
+        # Learn from current experience
+        self._learn_from_experience(experience, task)
+
+        # Replay random experiences to maintain old knowledge
+        self._replay_random_experiences(task, batch_size=4)
+
+        # Update performance tracking
+        self.task_performance[task].append(reward)
+
+    def _learn_from_experience(self, experience: Experience, task: str):
+        """Learn from a single experience for a specific task"""
+        network = self._get_network(task)
+
+        # Simple Q-learning update
+        state_with_bias = np.append(experience.state, 1.0)
+
+        # Compute current Q-value
+        q_values = state_with_bias @ network['weights']
+        current_q = q_values[experience.action]
+
+        # Compute target Q-value
+        if experience.done:
+            target_q = experience.reward
+        else:
+            # For simplicity, use immediate reward + estimated next value
+            next_q_values = np.append(experience.next_state, 1.0) @ network['weights']
+            target_q = experience.reward + 0.95 * np.max(next_q_values)
+
+        # Update weights using gradient descent
+        error = target_q - current_q
+        gradient = np.outer(state_with_bias, np.eye(self.action_dim)[experience.action])
+        network['weights'] += network['optimizer_params']['learning_rate'] * error * gradient
+
+        # Update importance weights
+        self._update_importance(task, experience.state, experience.action)
+
+    def _replay_random_experiences(self, current_task: str, batch_size: int = 4):
+        """Replay random experiences to prevent forgetting"""
+        if len(self.replay_buffer) < batch_size:
+            return
+
+        experiences = self.replay_buffer.sample(batch_size)
+
+        for experience in experiences:
+            # Use the same learning algorithm but with lower learning rate
+            # to preserve existing knowledge
+            temp_network = self._get_network(current_task)
+            temp_network['optimizer_params']['learning_rate'] *= 0.5
+
+            self._learn_from_experience(experience, current_task)
+
+            # Restore original learning rate
+            temp_network['optimizer_params']['learning_rate'] *= 2.0
+
+    def predict_action(self, state: np.ndarray) -> Tuple[int, str]:
+        """Predict best action for given state, return action and task"""
+        if self.current_task is None:
+            task, _ = self.task_classifier.classify_task(state, 0, 0.0)
+        else:
+            task = self.current_task
+
+        network = self._get_network(task)
+        state_with_bias = np.append(state, 1.0)
+        q_values = state_with_bias @ network['weights']
+
+        # Use epsilon-greedy for exploration
+        if random.random() < 0.1:  # 10% exploration
+            action = random.randint(0, self.action_dim - 1)
+        else:
+            action = int(np.argmax(q_values))
+
+        return action, task
+
+    def evaluate_task_performance(self, task: str) -> Dict[str, float]:
+        """Evaluate performance on a specific task"""
+        if task in self.task_performance and self.task_performance[task]:
+            performance = self.task_performance[task]
+            return {
+                'average_reward': np.mean(performance),
+                'total_episodes': len(performance),
+                'recent_performance': np.mean(performance[-10:]) if len(performance) >= 10 else np.mean(performance),
+                'stability': np.std(performance)  # Lower std = more stable
+            }
+        else:
+            return {'average_reward': 0.0, 'total_episodes': 0, 'recent_performance': 0.0, 'stability': float('inf')}
+
+# Example usage
+lifelong_learner = LifelongLearner(state_dim=4, action_dim=3)
+
+# Simulate learning across different tasks
+print("Simulating lifelong learning across tasks...")
+
+for episode in range(200):
+    # Simulate different task scenarios
+    if episode < 50:
+        # Task 1: Navigation
+        state = np.random.random(4) * 2 - 1  # Random state between -1 and 1
+        reward = 1.0 if state[0] > 0.5 else -0.1
+    elif episode < 100:
+        # Task 2: Object manipulation
+        state = np.random.random(4) * 2 - 1
+        reward = 1.0 if state[1] > 0.3 else -0.2
+    else:
+        # Task 3: Social interaction
+        state = np.random.random(4) * 2 - 1
+        reward = 1.0 if state[2] > 0.0 else -0.15
+
+    # Get action from learner
+    action, task = lifelong_learner.predict_action(state)
+
+    # Simulate environment (next state and done flag)
+    next_state = state + np.random.normal(0, 0.1, 4)
+    done = False
+
+    # Learn from the experience
+    lifelong_learner.learn(state, action, reward, next_state, done)
+
+# Evaluate performance
+print("\nTask Performance Evaluation:")
+for task in lifelong_learner.task_performance.keys():
+    perf = lifelong_learner.evaluate_task_performance(task)
+    print(f"{task}: Average reward = {perf['average_reward']:.3f}, "
+          f"Episodes = {perf['total_episodes']}, "
+          f"Stability = {perf['stability']:.3f}")
+
+print(f"\nCurrent task: {lifelong_learner.current_task}")
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+For autonomous learning systems, install necessary libraries:
+
+```bash
+pip install numpy matplotlib
+```
+
+### Step 2: Implementation
+
+1. Define learning algorithms for continuous adaptation
+2. Implement experience replay mechanisms
+3. Create task classification systems
+4. Add performance monitoring and evaluation
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing adaptation to changing environments
+- Verifying knowledge retention across tasks
+- Measuring learning efficiency and stability
+
+## Hands-on Exercise
+
+Implement an autonomous learning system:
+
+1. **Task 1**: Create an online learning algorithm for parameter adaptation
+2. **Task 2**: Implement a lifelong learning system with knowledge retention
+3. **Task 3**: Add performance monitoring and adaptation triggers
+
+### Exercise Requirements
+
+- Support continuous learning from experience
+- Include mechanisms to prevent catastrophic forgetting
+- Implement performance-based adaptation decisions
+
+## Verification
+
+How to test and validate the implementation:
+
+- Test adaptation speed and stability in changing conditions
+- Verify knowledge retention across multiple tasks
+- Measure learning efficiency and convergence
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Catastrophic forgetting when learning new tasks
+  - Solution: Implement experience replay and elastic weight consolidation
+- **Issue 2**: Slow adaptation to new conditions
+  - Solution: Adjust learning rates and add novelty detection
+- **Issue 3**: Instability during learning
+  - Solution: Add regularization and performance monitoring
+
+## Real-World Relevance
+
+Autonomous learning is essential in humanoid robotics for:
+- Adapting to new environments and users
+- Improving performance through experience
+- Handling unexpected situations without reprogramming
+- Personalizing robot behavior to individual users
+
+## Safety Considerations
+
+When working with autonomous learning systems:
+- Implement safety constraints that cannot be overridden by learning
+- Ensure learning doesn't compromise safety-critical behaviors
+- Monitor for anomalous learning that could lead to unsafe actions
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of meta-learning for rapid adaptation
+- Research into neural plasticity-inspired learning
+- Exploration of human-robot collaborative learning
+- Investigation of ethical considerations in autonomous learning
+
+## Summary
+
+This lesson covered the fundamentals of autonomous learning and adaptation for humanoid robots, including online learning algorithms and lifelong learning techniques that enable robots to continuously improve their performance over time.
+
+## Knowledge Check
+
+- Question 1: What are the main challenges in implementing lifelong learning for robots?
+- Question 2: How does experience replay help prevent catastrophic forgetting?
+- Question 3: What factors influence the rate of adaptation in autonomous learning systems?

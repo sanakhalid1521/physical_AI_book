@@ -1,0 +1,287 @@
+---
+title: "Lesson 3.1: Motion Planning and Pathfinding"
+sidebar_label: "Motion Planning and Pathfinding"
+description: "Algorithms for planning robot movements in 3D space, obstacle avoidance, and trajectory optimization for humanoid robots"
+keywords: ["motion planning", "pathfinding", "trajectory optimization", "humanoid control"]
+---
+
+# Lesson 3.1: Motion Planning and Pathfinding
+
+## Introduction
+
+Motion planning is a fundamental challenge in humanoid robotics, involving the computation of feasible and optimal paths for robots to move from one configuration to another while avoiding obstacles and satisfying various constraints. This lesson explores the core algorithms and techniques used for motion planning in 3D space, with special considerations for humanoid robots.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Understand the fundamentals of motion planning algorithms
+- Implement basic pathfinding algorithms for humanoid robots
+- Apply trajectory optimization techniques for smooth motion
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic understanding of kinematics and robot configurations
+- Programming skills in Python
+- Fundamentals of graph theory and search algorithms
+
+## Theoretical Foundation
+
+Motion planning in humanoid robots is more complex than in wheeled robots due to the need to consider the full 3D configuration space, including the position and orientation of multiple joints. The planning must account for the robot's complex kinematic structure and dynamic constraints.
+
+### Key Concepts
+
+- **Configuration Space (C-space)**: The space of all possible robot configurations
+- **Collision Detection**: Identifying when the robot intersects with obstacles
+- **Path Optimization**: Finding paths that are not just feasible but also optimal according to some criteria
+
+## Practical Application
+
+Let's explore motion planning algorithms with practical examples:
+
+### Example 1: Basic Path Planning in 2D
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from typing import List, Tuple, Optional
+import heapq
+
+class GridMap:
+    def __init__(self, width: int, height: int):
+        self.width = width
+        self.height = height
+        self.grid = np.zeros((height, width), dtype=int)  # 0 = free, 1 = obstacle
+
+    def set_obstacle(self, x: int, y: int):
+        if 0 <= x < self.width and 0 <= y < self.height:
+            self.grid[y, x] = 1
+
+    def is_free(self, x: int, y: int) -> bool:
+        if 0 <= x < self.width and 0 <= y < self.height:
+            return self.grid[y, x] == 0
+        return False
+
+class AStarPlanner:
+    def __init__(self, grid_map: GridMap):
+        self.grid_map = grid_map
+        self.directions = [(-1, 0), (1, 0), (0, -1), (0, 1),  # 4-connected
+                          (-1, -1), (-1, 1), (1, -1), (1, 1)]  # Diagonal
+
+    def heuristic(self, a: Tuple[int, int], b: Tuple[int, int]) -> float:
+        """Manhattan distance heuristic"""
+        return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+    def plan_path(self, start: Tuple[int, int], goal: Tuple[int, int]) -> Optional[List[Tuple[int, int]]]:
+        """Plan path using A* algorithm"""
+        open_set = [(0, start)]
+        came_from = {}
+        g_score = {start: 0}
+        f_score = {start: self.heuristic(start, goal)}
+
+        while open_set:
+            current = heapq.heappop(open_set)[1]
+
+            if current == goal:
+                # Reconstruct path
+                path = []
+                while current in came_from:
+                    path.append(current)
+                    current = came_from[current]
+                path.append(start)
+                return path[::-1]  # Reverse to get start-to-goal path
+
+            for dx, dy in self.directions:
+                neighbor = (current[0] + dx, current[1] + dy)
+
+                if not self.grid_map.is_free(neighbor[0], neighbor[1]):
+                    continue
+
+                tentative_g_score = g_score[current] + np.sqrt(dx*dx + dy*dy)
+
+                if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                    came_from[neighbor] = current
+                    g_score[neighbor] = tentative_g_score
+                    f_score[neighbor] = g_score[neighbor] + self.heuristic(neighbor, goal)
+                    heapq.heappush(open_set, (f_score[neighbor], neighbor))
+
+        return None  # No path found
+
+# Example usage
+grid = GridMap(20, 15)
+
+# Add some obstacles
+for i in range(5, 15):
+    grid.set_obstacle(i, 7)  # Horizontal wall
+
+# Plan path
+planner = AStarPlanner(grid)
+path = planner.plan_path((2, 2), (18, 12))
+
+if path:
+    print(f"Found path with {len(path)} steps")
+    for i, point in enumerate(path):
+        if i % 5 == 0:  # Print every 5th point
+            print(f"Step {i}: {point}")
+else:
+    print("No path found")
+```
+
+### Example 2: Trajectory Optimization for Smooth Motion
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+import matplotlib.pyplot as plt
+
+class TrajectoryOptimizer:
+    def __init__(self, start_pos, goal_pos, num_waypoints=10):
+        self.start_pos = np.array(start_pos)
+        self.goal_pos = np.array(goal_pos)
+        self.num_waypoints = num_waypoints
+
+    def objective_function(self, waypoints_flat):
+        """Minimize path length and smoothness"""
+        # Reshape flat array back to waypoints
+        waypoints = waypoints_flat.reshape(self.num_waypoints, 2)
+
+        # Add start and goal to trajectory
+        full_trajectory = np.vstack([self.start_pos, waypoints, self.goal_pos])
+
+        # Calculate path length
+        path_length = 0
+        for i in range(len(full_trajectory) - 1):
+            path_length += np.linalg.norm(full_trajectory[i+1] - full_trajectory[i])
+
+        # Calculate smoothness (minimize acceleration)
+        smoothness = 0
+        for i in range(1, len(full_trajectory) - 1):
+            prev_point = full_trajectory[i-1]
+            curr_point = full_trajectory[i]
+            next_point = full_trajectory[i+1]
+            acceleration = np.linalg.norm((next_point - curr_point) - (curr_point - prev_point))
+            smoothness += acceleration**2
+
+        # Weighted combination of path length and smoothness
+        return path_length + 0.1 * smoothness
+
+    def optimize_trajectory(self):
+        """Optimize trajectory to minimize length and maximize smoothness"""
+        # Initial guess: straight line between start and goal
+        initial_waypoints = []
+        for i in range(1, self.num_waypoints + 1):
+            t = i / (self.num_waypoints + 1)
+            waypoint = self.start_pos + t * (self.goal_pos - self.start_pos)
+            initial_waypoints.extend(waypoint)
+
+        # Optimize
+        result = minimize(
+            self.objective_function,
+            np.array(initial_waypoints),
+            method='BFGS'
+        )
+
+        # Extract optimized waypoints
+        optimized_waypoints = result.x.reshape(self.num_waypoints, 2)
+        full_trajectory = np.vstack([self.start_pos, optimized_waypoints, self.goal_pos])
+
+        return full_trajectory
+
+# Example usage
+optimizer = TrajectoryOptimizer(start_pos=[0, 0], goal_pos=[10, 8])
+optimized_trajectory = optimizer.optimize_trajectory()
+
+print(f"Optimized trajectory has {len(optimized_trajectory)} points")
+print(f"Start: {optimized_trajectory[0]}, Goal: {optimized_trajectory[-1]}")
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+Install necessary libraries for motion planning:
+
+```bash
+pip install numpy scipy matplotlib
+```
+
+### Step 2: Implementation
+
+1. Define the configuration space and environment representation
+2. Implement pathfinding algorithms (A*, RRT, etc.)
+3. Create trajectory optimization routines
+4. Add collision detection and avoidance
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing pathfinding in various obstacle configurations
+- Verifying trajectory smoothness and feasibility
+- Measuring computation time for real-time applications
+
+## Hands-on Exercise
+
+Implement a basic motion planning system:
+
+1. **Task 1**: Create a grid-based path planner using A* algorithm
+2. **Task 2**: Implement trajectory optimization for smooth motion
+3. **Task 3**: Add basic obstacle avoidance capabilities
+
+### Exercise Requirements
+
+- Support pathfinding in 2D environments with obstacles
+- Optimize trajectories for smooth motion
+- Include basic collision detection
+
+## Verification
+
+How to test and validate the implementation:
+
+- Test pathfinding with various obstacle configurations
+- Verify trajectory smoothness metrics
+- Measure computational performance for real-time applications
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Path planning failing in complex environments
+  - Solution: Implement more sophisticated algorithms like RRT or PRM
+- **Issue 2**: Trajectories being jerky or non-smooth
+  - Solution: Adjust optimization weights and add smoothness constraints
+- **Issue 3**: High computational cost affecting real-time performance
+  - Solution: Use hierarchical planning or pre-computed roadmaps
+
+## Real-World Relevance
+
+Motion planning is essential in humanoid robotics for:
+- Navigation through complex environments
+- Manipulation tasks requiring precise motion
+- Human-robot interaction scenarios
+- Safe movement around obstacles
+
+## Safety Considerations
+
+When working with motion planning systems:
+- Ensure collision checking for all planned trajectories
+- Implement safety margins around obstacles
+- Consider dynamic obstacles and real-time replanning
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of Rapidly-exploring Random Trees (RRT) for high-dimensional spaces
+- Research into sampling-based motion planning algorithms
+- Exploration of optimal control for trajectory generation
+- Investigation of learning-based motion planning approaches
+
+## Summary
+
+This lesson covered the fundamentals of motion planning and pathfinding for humanoid robots, including basic algorithms, trajectory optimization, and practical implementation considerations.
+
+## Knowledge Check
+
+- Question 1: What is the difference between path planning and trajectory planning?
+- Question 2: How does configuration space differ from Cartesian space in motion planning?
+- Question 3: What are the challenges of motion planning for humanoid robots compared to wheeled robots?

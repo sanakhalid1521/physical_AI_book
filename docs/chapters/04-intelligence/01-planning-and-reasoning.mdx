@@ -1,0 +1,412 @@
+---
+title: "Lesson 4.1: Planning and Reasoning"
+sidebar_label: "Planning and Reasoning"
+description: "High-level planning algorithms, task planning, and reasoning systems that enable humanoid robots to perform complex, multi-step tasks"
+keywords: ["planning", "reasoning", "task planning", "logic programming", "AI reasoning"]
+---
+
+# Lesson 4.1: Planning and Reasoning
+
+## Introduction
+
+Planning and reasoning systems are crucial for enabling humanoid robots to perform complex, multi-step tasks by breaking them down into manageable subtasks and executing them in the correct sequence. This lesson explores high-level planning algorithms, task planning techniques, and reasoning systems that allow robots to think ahead and make intelligent decisions.
+
+## Learning Objectives
+
+After completing this lesson, students will be able to:
+- Understand the fundamentals of automated planning for robotics
+- Implement basic task planning algorithms
+- Apply logical reasoning techniques for robot decision-making
+
+## Prerequisites
+
+Students should have knowledge of:
+- Basic understanding of artificial intelligence concepts
+- Programming skills in Python
+- Familiarity with logic and formal reasoning
+
+## Theoretical Foundation
+
+Planning and reasoning systems for humanoid robots must handle complex, multi-step tasks that require both high-level strategic thinking and low-level execution. These systems bridge the gap between abstract goals and concrete actions.
+
+### Key Concepts
+
+- **Task Planning**: Breaking down complex goals into sequences of executable actions
+- **Hierarchical Planning**: Organizing plans at multiple levels of abstraction
+- **Logical Reasoning**: Using formal logic to make decisions and draw conclusions
+
+## Practical Application
+
+Let's explore planning and reasoning systems with practical examples:
+
+### Example 1: Basic Task Planner
+
+```python
+from typing import List, Dict, Set, Tuple, Optional
+from dataclasses import dataclass
+from enum import Enum
+
+@dataclass
+class Action:
+    name: str
+    preconditions: Set[str]
+    effects: Set[str]
+    cost: int = 1
+
+@dataclass
+class Task:
+    name: str
+    goal_conditions: Set[str]
+
+class SimplePlanner:
+    def __init__(self):
+        self.actions: List[Action] = []
+        self.current_state: Set[str] = set()
+
+    def add_action(self, action: Action):
+        """Add an action to the planner's repertoire"""
+        self.actions.append(action)
+
+    def set_initial_state(self, state: Set[str]):
+        """Set the initial state of the world"""
+        self.current_state = state.copy()
+
+    def is_goal_satisfied(self, goal_conditions: Set[str], state: Set[str]) -> bool:
+        """Check if all goal conditions are satisfied in the given state"""
+        return goal_conditions.issubset(state)
+
+    def find_applicable_actions(self, state: Set[str]) -> List[Action]:
+        """Find all actions that can be applied in the current state"""
+        applicable = []
+        for action in self.actions:
+            if action.preconditions.issubset(state):
+                applicable.append(action)
+        return applicable
+
+    def execute_action(self, action: Action, state: Set[str]) -> Set[str]:
+        """Execute an action and return the new state"""
+        new_state = state.copy()
+        # Remove effects that start with 'not_'
+        for effect in action.effects:
+            if effect.startswith('not_'):
+                negated_fact = effect[4:]  # Remove 'not_' prefix
+                new_state.discard(negated_fact)
+            else:
+                new_state.add(effect)
+        return new_state
+
+    def plan_to_goal(self, goal_conditions: Set[str]) -> Optional[List[Action]]:
+        """Find a plan to achieve the goal conditions using breadth-first search"""
+        # Check if goal is already satisfied
+        if self.is_goal_satisfied(goal_conditions, self.current_state):
+            return []
+
+        # Use breadth-first search to find a plan
+        queue = [(self.current_state, [])]  # (state, plan)
+        visited = {tuple(sorted(self.current_state))}
+
+        while queue:
+            current_state, current_plan = queue.pop(0)
+
+            # Find applicable actions
+            applicable_actions = self.find_applicable_actions(current_state)
+
+            for action in applicable_actions:
+                new_state = self.execute_action(action, current_state)
+                new_plan = current_plan + [action]
+
+                # Check if goal is satisfied
+                if self.is_goal_satisfied(goal_conditions, new_state):
+                    return new_plan
+
+                # Check if this state has been visited
+                state_key = tuple(sorted(new_state))
+                if state_key not in visited:
+                    visited.add(state_key)
+                    queue.append((new_state, new_plan))
+
+        return None  # No plan found
+
+# Example usage: Robot kitchen task
+planner = SimplePlanner()
+
+# Define actions for a simple kitchen scenario
+planner.add_action(Action(
+    name="pick_up_cup",
+    preconditions={"at_kitchen", "cup_on_table", "arm_free"},
+    effects={"holding_cup", "not_arm_free", "not_cup_on_table"}
+))
+
+planner.add_action(Action(
+    name="go_to_kitchen",
+    preconditions=set(),
+    effects={"at_kitchen"}
+))
+
+planner.add_action(Action(
+    name="fill_cup",
+    preconditions={"holding_cup", "at_kitchen", "water_available"},
+    effects={"cup_filled"}
+))
+
+planner.add_action(Action(
+    name="deliver_cup",
+    preconditions={"cup_filled", "holding_cup"},
+    effects={"cup_delivered", "arm_free", "not_holding_cup"}
+))
+
+# Set initial state
+planner.set_initial_state({"water_available", "cup_on_table"})
+
+# Define goal
+goal = {"cup_delivered"}
+
+# Plan to achieve goal
+plan = planner.plan_to_goal(goal)
+
+if plan:
+    print(f"Found plan with {len(plan)} actions:")
+    for i, action in enumerate(plan):
+        print(f"  {i+1}. {action.name}")
+else:
+    print("No plan found")
+```
+
+### Example 2: Logical Reasoning System
+
+```python
+from typing import Dict, List, Set, Tuple, Any
+from dataclasses import dataclass
+
+@dataclass
+class Predicate:
+    """A logical predicate with name and arguments"""
+    name: str
+    args: List[str]
+
+@dataclass
+class Rule:
+    """A logical rule with head and body"""
+    head: Predicate
+    body: List[Predicate]
+
+class KnowledgeBase:
+    def __init__(self):
+        self.facts: Set[Tuple[str, ...]] = set()
+        self.rules: List[Rule] = []
+
+    def add_fact(self, predicate: Predicate):
+        """Add a fact to the knowledge base"""
+        self.facts.add((predicate.name, *predicate.args))
+
+    def add_rule(self, rule: Rule):
+        """Add a rule to the knowledge base"""
+        self.rules.append(rule)
+
+    def query(self, predicate: Predicate) -> bool:
+        """Query if a predicate is true given the knowledge base"""
+        # Check if fact exists directly
+        if (predicate.name, *predicate.args) in self.facts:
+            return True
+
+        # Try to derive using rules
+        for rule in self.rules:
+            if self._unify_and_derive(rule, predicate):
+                return True
+
+        return False
+
+    def _unify_and_derive(self, rule: Rule, query: Predicate) -> bool:
+        """Try to unify the rule head with the query and derive if possible"""
+        # Simple unification for same predicate name and matching arguments
+        if rule.head.name == query.name:
+            # Check if we can match the arguments
+            if len(rule.head.args) == len(query.args):
+                # For this simple example, assume direct match or variables
+                # In a full implementation, you'd do proper unification
+                return all(
+                    rule_head_arg == query_arg or rule_head_arg.startswith('?')
+                    for rule_head_arg, query_arg in zip(rule.head.args, query.args)
+                )
+
+        return False
+
+    def forward_chain(self) -> Set[Tuple[str, ...]]:
+        """Perform forward chaining to derive all possible facts"""
+        new_facts = set(self.facts)
+
+        changed = True
+        while changed:
+            changed = False
+            current_facts = set(new_facts)
+
+            for rule in self.rules:
+                # Check if all body predicates are satisfied
+                body_satisfied = True
+                for body_pred in rule.body:
+                    if (body_pred.name, *body_pred.args) not in current_facts:
+                        body_satisfied = False
+                        break
+
+                if body_satisfied:
+                    # Add the head predicate if not already present
+                    head_fact = (rule.head.name, *rule.head.args)
+                    if head_fact not in new_facts:
+                        new_facts.add(head_fact)
+                        changed = True
+
+        return new_facts
+
+class RobotReasoner:
+    def __init__(self):
+        self.kb = KnowledgeBase()
+        self.setup_knowledge_base()
+
+    def setup_knowledge_base(self):
+        """Set up the initial knowledge base for the robot"""
+        # Add facts about the environment
+        self.kb.add_fact(Predicate("at", ["robot", "kitchen"]))
+        self.kb.add_fact(Predicate("at", ["cup", "table"]))
+        self.kb.add_fact(Predicate("available", ["water"]))
+        self.kb.add_fact(Predicate("free", ["arm"]))
+
+        # Add rules for reasoning
+        self.kb.add_rule(Rule(
+            head=Predicate("can_pick_up", ["X", "Y"]),
+            body=[Predicate("at", ["X", "location"]),
+                  Predicate("at", ["Y", "location"]),
+                  Predicate("free", ["X"])]
+        ))
+
+        self.kb.add_rule(Rule(
+            head=Predicate("can_reach", ["X", "Y"]),
+            body=[Predicate("at", ["X", "location"]),
+                  Predicate("at", ["Y", "location"])]
+        ))
+
+        self.kb.add_rule(Rule(
+            head=Predicate("can_pour", ["X", "Y", "Z"]),
+            body=[Predicate("holding", ["X"]),
+                  Predicate("available", ["Y"]),
+                  Predicate("container", ["Z"])]
+        ))
+
+    def can_perform_action(self, action: str, args: List[str]) -> bool:
+        """Check if the robot can perform a specific action"""
+        if action == "pick_up":
+            return self.kb.query(Predicate("can_pick_up", args))
+        elif action == "reach":
+            return self.kb.query(Predicate("can_reach", args))
+        else:
+            # For other actions, check if they're directly possible
+            return self.kb.query(Predicate(action, args))
+
+    def get_environment_state(self) -> Set[Tuple[str, ...]]:
+        """Get all derived facts about the environment"""
+        return self.kb.forward_chain()
+
+# Example usage
+reasoner = RobotReasoner()
+
+# Query the knowledge base
+can_pick_up = reasoner.can_perform_action("pick_up", ["robot", "cup"])
+print(f"Can robot pick up cup? {can_pick_up}")
+
+can_reach = reasoner.can_perform_action("reach", ["robot", "cup"])
+print(f"Can robot reach cup? {can_reach}")
+
+# Get all derived facts
+all_facts = reasoner.get_environment_state()
+print(f"All derived facts: {all_facts}")
+```
+
+## Implementation Guide
+
+### Step 1: Setup
+
+For planning and reasoning systems, you'll need basic Python libraries:
+
+```bash
+pip install numpy
+```
+
+### Step 2: Implementation
+
+1. Define the planning domain (actions, preconditions, effects)
+2. Implement planning algorithms (STRIPS, PDDL, etc.)
+3. Create reasoning systems with knowledge bases
+4. Add planning and reasoning integration
+
+### Step 3: Testing
+
+Validate your implementation by:
+- Testing with simple planning problems
+- Verifying reasoning correctness
+- Measuring planning efficiency
+
+## Hands-on Exercise
+
+Implement a basic planning and reasoning system:
+
+1. **Task 1**: Create a simple STRIPS-style planner for a robot task
+2. **Task 2**: Implement a logical reasoning system with facts and rules
+3. **Task 3**: Integrate planning and reasoning for complex task execution
+
+### Exercise Requirements
+
+- Support planning with multiple preconditions and effects
+- Include logical reasoning with forward chaining
+- Implement plan execution monitoring
+
+## Verification
+
+How to test and validate the implementation:
+
+- Test planning with various goal configurations
+- Verify reasoning correctness with logical queries
+- Measure planning time and solution quality
+
+## Troubleshooting Guide
+
+Common issues and solutions:
+
+- **Issue 1**: Planner taking too long to find solutions
+  - Solution: Implement heuristic search or planning hierarchies
+- **Issue 2**: Reasoning system giving incorrect conclusions
+  - Solution: Verify rule correctness and add proper constraints
+- **Issue 3**: Plans failing during execution
+  - Solution: Add plan monitoring and replanning capabilities
+
+## Real-World Relevance
+
+Planning and reasoning are essential in humanoid robotics for:
+- Executing complex multi-step tasks
+- Making intelligent decisions in dynamic environments
+- Interacting with humans and objects safely
+- Adapting to unexpected situations
+
+## Safety Considerations
+
+When working with planning and reasoning systems:
+- Ensure safety constraints are included in planning
+- Verify that reasoning leads to safe actions
+- Implement fallback plans for critical situations
+
+## Further Exploration
+
+Advanced topics and additional resources for students who want to dive deeper:
+
+- Study of PDDL (Planning Domain Definition Language) for complex planning
+- Research into hierarchical task networks (HTN) planning
+- Exploration of probabilistic reasoning systems
+- Investigation of planning under uncertainty
+
+## Summary
+
+This lesson covered the fundamentals of planning and reasoning for humanoid robots, including task planning algorithms and logical reasoning systems that enable robots to perform complex, multi-step tasks.
+
+## Knowledge Check
+
+- Question 1: What is the difference between planning and scheduling in robotics?
+- Question 2: How do preconditions and effects work in STRIPS-style planning?
+- Question 3: What are the challenges of planning for humanoid robots compared to simple agents?

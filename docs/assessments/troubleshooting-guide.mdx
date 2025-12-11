@@ -1,0 +1,149 @@
+# Comprehensive Troubleshooting Guide for Physical AI & Humanoid Robotics Textbook
+
+## General Setup Issues
+
+### Environment Setup
+**Problem**: Cannot install required dependencies
+- **Solution**: Ensure you have the correct Python version (3.8+) and Node.js version (18+)
+- **Solution**: Try using a virtual environment to avoid conflicts
+- **Solution**: Check that your system meets the minimum requirements
+
+**Problem**: Docusaurus site won't start
+- **Solution**: Run `npm install` to ensure all dependencies are installed
+- **Solution**: Clear the cache with `npm run clear` and try again
+- **Solution**: Check that no other process is using port 3000
+
+### Code Execution Issues
+**Problem**: Code examples don't run as expected
+- **Solution**: Verify all required libraries are installed
+- **Solution**: Check Python version compatibility
+- **Solution**: Ensure proper indentation in Python code
+
+## Chapter-Specific Troubleshooting
+
+### Chapter 1: Introduction to Physical AI
+**Problem**: Simulation environment not working
+- **Solution**: Verify simulation software is properly installed
+- **Solution**: Check that all required packages are installed
+- **Solution**: Restart the simulation environment
+
+**Problem**: Basic sensor-action loop not responding
+- **Solution**: Check that sensor data is being properly read
+- **Solution**: Verify actuator commands are being sent correctly
+- **Solution**: Add debugging output to trace execution
+
+### Chapter 2: Perception Systems
+**Problem**: Sensor data is inconsistent or noisy
+- **Solution**: Implement sensor filtering and validation
+- **Solution**: Check sensor calibration
+- **Solution**: Verify timing and synchronization
+
+**Problem**: Computer vision algorithms not detecting features
+- **Solution**: Adjust detection thresholds
+- **Solution**: Verify image quality and lighting conditions
+- **Solution**: Check that the correct image format is being used
+
+### Chapter 3: Decision Making and Control
+**Problem**: Motion planning algorithm taking too long
+- **Solution**: Optimize algorithm parameters
+- **Solution**: Reduce search space if possible
+- **Solution**: Consider using sampling-based approaches
+
+**Problem**: Control system is unstable
+- **Solution**: Adjust control parameters (P, I, D values)
+- **Solution**: Check for timing issues in the control loop
+- **Solution**: Verify sensor feedback is accurate
+
+### Chapter 4: AI Integration and Intelligence
+**Problem**: Planning system not finding solutions
+- **Solution**: Check problem formulation and constraints
+- **Solution**: Verify domain definition is correct
+- **Solution**: Adjust planning algorithm parameters
+
+**Problem**: Learning algorithm not converging
+- **Solution**: Adjust learning rate and other hyperparameters
+- **Solution**: Verify reward function is properly designed
+- **Solution**: Check for issues in state representation
+
+### Chapter 5: Advanced Applications
+**Problem**: Deployment fails in real-world environment
+- **Solution**: Test thoroughly in simulation first
+- **Solution**: Verify all safety checks are in place
+- **Solution**: Implement gradual deployment with monitoring
+
+## Common Hardware Issues
+
+### Simulation Problems
+**Problem**: Simulation runs slowly
+- **Solution**: Reduce simulation fidelity temporarily
+- **Solution**: Close other applications to free up resources
+- **Solution**: Check that graphics drivers are up to date
+
+**Problem**: Physics simulation is unstable
+- **Solution**: Reduce time step size
+- **Solution**: Verify that masses and inertias are properly set
+- **Solution**: Check for geometric issues in models
+
+## Software Compatibility Issues
+
+### Python Version Conflicts
+**Problem**: Libraries not compatible with Python version
+- **Solution**: Use Python 3.8+ as specified in requirements
+- **Solution**: Create a virtual environment with the correct version
+- **Solution**: Check library documentation for compatibility
+
+### Library Version Conflicts
+**Problem**: Different library versions causing issues
+- **Solution**: Use the versions specified in requirements
+- **Solution**: Create a requirements.txt file to lock versions
+- **Solution**: Use conda or pipenv for environment management
+
+## Performance Optimization
+
+### Runtime Issues
+**Problem**: Real-time constraints not met
+- **Solution**: Optimize algorithm complexity
+- **Solution**: Use more efficient data structures
+- **Solution**: Consider parallel processing where appropriate
+
+### Memory Issues
+**Problem**: High memory usage
+- **Solution**: Optimize data structures and algorithms
+- **Solution**: Implement proper memory management
+- **Solution**: Use generators instead of loading all data at once
+
+## Debugging Strategies
+
+### Logging and Monitoring
+- Add logging statements to track program execution
+- Monitor system resources during execution
+- Use visualization tools to understand system behavior
+
+### Isolation Testing
+- Test components individually before integration
+- Use unit tests for critical functions
+- Verify inputs and outputs at each step
+
+## Safety and Ethics Considerations
+
+### Safety Checks
+- Always implement safety limits before testing on hardware
+- Verify emergency stop mechanisms are functional
+- Test extensively in simulation before real-world deployment
+
+### Ethical Considerations
+- Consider privacy implications of data collection
+- Ensure transparency in AI decision-making
+- Plan for responsible deployment and use
+
+## Getting Help
+
+### Documentation
+- Refer to the specific chapter for detailed explanations
+- Check the API documentation for libraries used
+- Review the troubleshooting section of each lesson
+
+### Community Resources
+- Check the textbook's GitHub repository for known issues
+- Search online forums for similar problems
+- Consider posting your specific issue with a minimal example

@@ -1,0 +1,50 @@
+# Humanoid Robot Architecture Diagram
+
+## Components Overview
+
+```mermaid
+graph TB
+    A[Humanoid Robot] --> B[Sensing Subsystem]
+    A --> C[Processing Subsystem]
+    A --> D[Actuation Subsystem]
+    A --> E[Communication Subsystem]
+
+    B --> B1[IMU Sensors]
+    B --> B2[Cameras]
+    B --> B3[LIDAR]
+    B --> B4[Force/Torque Sensors]
+
+    C --> C1[Perception Module]
+    C --> C2[Planning Module]
+    C --> C3[Control Module]
+    C --> C4[Learning Module]
+
+    D --> D1[Arm Actuators]
+    D --> D2[Leg Actuators]
+    D --> D3[Head Actuators]
+
+    E --> E1[Wifi Module]
+    E --> E2[Bluetooth Module]
+```
+
+## Physical Structure
+
+```mermaid
+graph LR
+    Head[Head] --> Neck[Neck]
+    Neck --> Torso[Torso]
+    Torso --> Sub1[Left Arm]
+    Torso --> Sub2[Right Arm]
+    Torso --> Sub3[Left Leg]
+    Torso --> Sub4[Right Leg]
+
+    Sub1 --> L1[Shoulder]
+    Sub1 --> L2[Elbow]
+    Sub1 --> L3[Wrist]
+    Sub1 --> L4[Hand]
+
+    Sub2 --> R1[Shoulder]
+    Sub2 --> R2[Elbow]
+    Sub2 --> R3[Wrist]
+    Sub2 --> R4[Hand]
+```

@@ -1,0 +1,44 @@
+# Motion Planning Diagram
+
+## Planning Hierarchy
+
+```mermaid
+graph TB
+    A[Motion Planning] --> B[Path Planning]
+    A --> C[Trajectory Planning]
+    A --> D[Dynamic Planning]
+
+    B --> B1[Global Path Planning]
+    B --> B2[Local Path Planning]
+    B --> B3[Path Smoothing]
+
+    C --> C1[Trajectory Generation]
+    C --> C2[Velocity Profiling]
+    C --> C3[Timing Optimization]
+
+    D --> D1[Dynamic Constraints]
+    D --> D2[Balance Maintenance]
+    D --> D3[Real-time Re-planning]
+```
+
+## A* Path Planning Algorithm
+
+```mermaid
+flowchart LR
+    A[Start Node] --> B{Goal Reached?}
+    B -->|No| C[Select Node with lowest f = g + h]
+    C --> D[Generate Neighbors]
+    D --> E[Calculate g, h, f values]
+    E --> F{Neighbor in Open/Closed List?}
+    F -->|No| G[Add to Open List]
+    F -->|Yes| H{Better Path Found?}
+    H -->|Yes| I[Update Path]
+    H -->|No| J[Continue]
+    G --> B
+    I --> B
+    J --> B
+    B -->|Yes| K[Reconstruct Path]
+
+    style A fill:#ffcccc
+    style K fill:#ccffcc
+```

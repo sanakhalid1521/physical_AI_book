@@ -1,0 +1,494 @@
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Layout from '@theme/Layout';
+import Heading from '@theme/Heading';
+
+<></>
+
+# Welcome to Physical AI & Humanoid Robotics Textbook
+
+<div className="hero hero--primary" style={{
+  background: 'linear-gradient(135deg, #f5f7fa 0%, #e4edf5 50%, #d1e7f1 100%)',
+  padding: '4rem 0',
+  textAlign: 'center',
+  position: 'relative',
+  overflow: 'hidden'
+}}>
+  <div className="container">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '1rem'
+    }}>
+      <h1 className="hero__title" style={{
+        fontSize: '3rem',
+        fontWeight: '700',
+        color: '#2c3e50',
+        marginBottom: '1rem'
+      }}>
+        Physical AI & Humanoid Robotics
+      </h1>
+      <p className="hero__subtitle" style={{
+        fontSize: '1.5rem',
+        color: '#000000',
+        maxWidth: '800px',
+        margin: '0 auto 2rem'
+      }}>
+        A comprehensive guide to the intersection of artificial intelligence and physical systems
+      </p>
+      <div className="buttons" style={{
+        display: 'flex',
+        gap: '1rem',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+      }}>
+        <Link
+          className="button button--primary button--lg"
+          to="/docs/chapters/introduction/foundations-of-physical-ai"
+          style={{
+            backgroundColor: '#a8dadc',
+            borderColor: '#a8dadc',
+            color: '#1d3557',
+            padding: '0.75rem 2rem',
+            borderRadius: '50px',
+            fontWeight: '600',
+            transition: 'all 0.3s ease'
+          }}
+        >
+          Start Learning
+        </Link>
+        <Link
+          className="button button--secondary button--lg"
+          to="/docs/intro"
+          style={{
+            backgroundColor: 'transparent',
+            borderColor: '#457b9d',
+            color: '#457b9d',
+            padding: '0.75rem 2rem',
+            borderRadius: '50px',
+            fontWeight: '600',
+            transition: 'all 0.3s ease'
+          }}
+        >
+          Explore Content
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+
+## Key Features
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gap: '2rem',
+  padding: '4rem 2rem',
+  backgroundColor: '#ffffff'
+}}>
+  <div className="card" style={{
+    padding: '2rem',
+    textAlign: 'center',
+    borderRadius: '15px',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+    backgroundColor: '#f8f9fa',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: '1px solid #e9ecef'
+  }}>
+    <div style={{
+      fontSize: '2.5rem',
+      marginBottom: '1rem',
+      color: '#a8dadc'
+    }}>
+      🤖
+    </div>
+    <h3 style={{
+      color: '#2c3e50',
+      fontSize: '1.5rem',
+      marginBottom: '1rem'
+    }}>
+      Hands-On Learning
+    </h3>
+    <p style={{
+      color: '#000000',
+      lineHeight: '1.6'
+    }}>
+      Practical exercises and real-world applications to reinforce theoretical concepts in Physical AI and robotics.
+    </p>
+  </div>
+
+  <div className="card" style={{
+    padding: '2rem',
+    textAlign: 'center',
+    borderRadius: '15px',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+    backgroundColor: '#f8f9fa',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: '1px solid #e9ecef'
+  }}>
+    <div style={{
+      fontSize: '2.5rem',
+      marginBottom: '1rem',
+      color: '#f1faee'
+    }}>
+      🧠
+    </div>
+    <h3 style={{
+      color: '#2c3e50',
+      fontSize: '1.5rem',
+      marginBottom: '1rem'
+    }}>
+      AI Integration
+    </h3>
+    <p style={{
+      color: '#000000',
+      lineHeight: '1.6'
+    }}>
+      Deep dive into how artificial intelligence algorithms control physical systems and interact with the real world.
+    </p>
+  </div>
+
+  <div className="card" style={{
+    padding: '2rem',
+    textAlign: 'center',
+    borderRadius: '15px',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+    backgroundColor: '#f8f9fa',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: '1px solid #e9ecef'
+  }}>
+    <div style={{
+      fontSize: '2.5rem',
+      marginBottom: '1rem',
+      color: '#a8e6cf'
+    }}>
+      📚
+    </div>
+    <h3 style={{
+      color: '#2c3e50',
+      fontSize: '1.5rem',
+      marginBottom: '1rem'
+    }}>
+      Comprehensive Curriculum
+    </h3>
+    <p style={{
+      color: '#000000',
+      lineHeight: '1.6'
+    }}>
+      Five chapters with structured lessons covering all aspects of humanoid robotics and Physical AI.
+    </p>
+  </div>
+</div>
+
+## Chapter Navigation
+
+<div style={{
+  padding: '4rem 2rem',
+  backgroundColor: '#f1faee'
+}}>
+  <div className="container">
+    <h2 style={{
+      textAlign: 'center',
+      fontSize: '2.5rem',
+      color: '#2c3e50',
+      marginBottom: '3rem'
+    }}>
+      Explore the Chapters
+    </h2>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '2rem'
+    }}>
+      <Link
+        to="/docs/chapters/introduction/foundations-of-physical-ai"
+        className="card"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          borderRadius: '15px',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          transition: 'all 0.3s ease',
+          border: '1px solid #e9ecef'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-10px)';
+          e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+        }}
+      >
+        <h3 style={{
+          color: '#457b9d',
+          fontSize: '1.5rem',
+          marginBottom: '1rem'
+        }}>
+          Chapter 1: Introduction to Physical AI
+        </h3>
+        <p style={{
+          color: '#000000',
+          lineHeight: '1.6'
+        }}>
+          Foundations of Physical AI and humanoid robotics, exploring the intersection of AI and physical systems.
+        </p>
+      </Link>
+
+      <Link
+        to="/docs/chapters/perception/sensor-integration"
+        className="card"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          borderRadius: '15px',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          transition: 'all 0.3s ease',
+          border: '1px solid #e9ecef'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-10px)';
+          e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+        }}
+      >
+        <h3 style={{
+          color: '#457b9d',
+          fontSize: '1.5rem',
+          marginBottom: '1rem'
+        }}>
+          Chapter 2: Perception Systems
+        </h3>
+        <p style={{
+          color: '#000000',
+          lineHeight: '1.6'
+        }}>
+          Sensor integration, computer vision, and multi-modal perception for humanoid robots.
+        </p>
+      </Link>
+
+      <Link
+        to="/docs/chapters/control/motion-planning"
+        className="card"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          borderRadius: '15px',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          transition: 'all 0.3s ease',
+          border: '1px solid #e9ecef'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-10px)';
+          e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+        }}
+      >
+        <h3 style={{
+          color: '#457b9d',
+          fontSize: '1.5rem',
+          marginBottom: '1rem'
+        }}>
+          Chapter 3: Decision Making and Control
+        </h3>
+        <p style={{
+          color: '#000000',
+          lineHeight: '1.6'
+        }}>
+          Motion planning, behavioral control systems, and learning-based control approaches.
+        </p>
+      </Link>
+
+      <Link
+        to="/docs/chapters/intelligence/planning-and-reasoning"
+        className="card"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          borderRadius: '15px',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          transition: 'all 0.3s ease',
+          border: '1px solid #e9ecef'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-10px)';
+          e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+        }}
+      >
+        <h3 style={{
+          color: '#457b9d',
+          fontSize: '1.5rem',
+          marginBottom: '1rem'
+        }}>
+          Chapter 4: AI Integration and Intelligence
+        </h3>
+        <p style={{
+          color: '#000000',
+          lineHeight: '1.6'
+        }}>
+          Planning and reasoning systems, human-robot interaction, and autonomous learning.
+        </p>
+      </Link>
+
+      <Link
+        to="/docs/chapters/applications/real-world-deployment"
+        className="card"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          borderRadius: '15px',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+          transition: 'all 0.3s ease',
+          border: '1px solid #e9ecef'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-10px)';
+          e.target.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
+        }}
+      >
+        <h3 style={{
+          color: '#457b9d',
+          fontSize: '1.5rem',
+          marginBottom: '1rem'
+        }}>
+          Chapter 5: Advanced Applications
+        </h3>
+        <p style={{
+          color: '#000000',
+          lineHeight: '1.6'
+        }}>
+          Real-world deployment challenges, specialized applications, and ethical considerations.
+        </p>
+      </Link>
+    </div>
+  </div>
+</div>
+
+## Why Learn Physical AI?
+
+<div style={{
+  padding: '4rem 2rem',
+  backgroundColor: '#ffffff'
+}}>
+  <div className="container" style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '3rem',
+    alignItems: 'center'
+  }}>
+    <div>
+      <h2 style={{
+        fontSize: '2.5rem',
+        color: '#2c3e50',
+        marginBottom: '1.5rem'
+      }}>
+        The Future is Physical
+      </h2>
+      <p style={{
+        fontSize: '1.2rem',
+        color: '#000000',
+        lineHeight: '1.8',
+        marginBottom: '2rem'
+      }}>
+        Physical AI represents the next frontier in artificial intelligence, where algorithms don't just process data but interact with and control physical systems in the real world.
+      </p>
+      <ul style={{
+        listStyle: 'none',
+        padding: 0
+      }}>
+        <li style={{
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '0.5rem'
+        }}>
+          <span style={{
+            color: '#a8dadc',
+            fontWeight: 'bold'
+          }}>
+            ✓
+          </span>
+          <span style={{
+            color: '#7f8c8d'
+          }}>
+            Understand how AI systems interact with the physical world
+          </span>
+        </li>
+        <li style={{
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '0.5rem'
+        }}>
+          <span style={{
+            color: '#a8dadc',
+            fontWeight: 'bold'
+          }}>
+            ✓
+          </span>
+          <span style={{
+            color: '#7f8c8d'
+          }}>
+            Learn to design and implement humanoid robot systems
+          </span>
+        </li>
+        <li style={{
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '0.5rem'
+        }}>
+          <span style={{
+            color: '#a8dadc',
+            fontWeight: 'bold'
+          }}>
+            ✓
+          </span>
+          <span style={{
+            color: '#7f8c8d'
+          }}>
+            Master the integration of perception, decision-making, and control
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div style={{
+      textAlign: 'center'
+    }}>
+      <div style={{
+        fontSize: '8rem',
+        color: '#a8dadc',
+        opacity: 0.8
+      }}>
+        🤖
+      </div>
+    </div>
+  </div>
+</div>

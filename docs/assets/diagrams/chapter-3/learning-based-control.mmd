@@ -1,0 +1,43 @@
+# Learning-Based Control Diagram
+
+## Reinforcement Learning Framework
+
+```mermaid
+graph LR
+    A[Robot State] --> B[Learning Agent]
+    B --> C[Action Selection]
+    C --> D[Robot Actuators]
+    D --> E[Environment]
+    E --> F[Sensors]
+    F --> A
+    B --> G[Reward Signal]
+    G --> B
+
+    style A fill:#ffcccc
+    style D fill:#cde4ff
+    style E fill:#f9f
+    style B fill:#ccffcc
+```
+
+## Learning Approaches Comparison
+
+```mermaid
+graph LR
+    A[Learning-Based Control] --> B[Reinforcement Learning]
+    A --> C[Imitation Learning]
+    A --> D[Self-Supervised Learning]
+
+    B --> B1[Q-Learning]
+    B --> B2[Deep Q-Network]
+    B --> B3[Policy Gradient]
+
+    C --> C1[Behavioral Cloning]
+    C --> C2[DAgger Algorithm]
+    C --> C3[Generative Adversarial Imitation Learning]
+
+    D --> D1[Autoencoders]
+    D --> D2[Predictive Learning]
+    D --> D3[Contrastive Learning]
+
+    style A fill:#e1f5fe
+```
