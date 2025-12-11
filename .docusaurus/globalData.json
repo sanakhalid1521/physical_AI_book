@@ -1,0 +1,263 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "chapters/introduction/foundations-of-physical-ai",
+          "docs": [
+            {
+              "id": "assessments/chapter-1-assessment",
+              "path": "/docs/assessments/chapter-1-assessment"
+            },
+            {
+              "id": "assessments/chapter-2-assessment",
+              "path": "/docs/assessments/chapter-2-assessment"
+            },
+            {
+              "id": "assessments/chapter-3-assessment",
+              "path": "/docs/assessments/chapter-3-assessment"
+            },
+            {
+              "id": "assessments/chapter-4-assessment",
+              "path": "/docs/assessments/chapter-4-assessment"
+            },
+            {
+              "id": "assessments/chapter-5-assessment",
+              "path": "/docs/assessments/chapter-5-assessment"
+            },
+            {
+              "id": "assessments/comprehensive-review",
+              "path": "/docs/assessments/comprehensive-review"
+            },
+            {
+              "id": "assessments/exercise-reproducibility",
+              "path": "/docs/assessments/exercise-reproducibility"
+            },
+            {
+              "id": "assessments/features-verification",
+              "path": "/docs/assessments/features-verification"
+            },
+            {
+              "id": "assessments/troubleshooting-guide",
+              "path": "/docs/assessments/troubleshooting-guide"
+            },
+            {
+              "id": "chapters/applications/future-directions",
+              "path": "/docs/chapters/applications/future-directions",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/applications/real-world-deployment",
+              "path": "/docs/chapters/applications/real-world-deployment",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/applications/specialized-applications",
+              "path": "/docs/chapters/applications/specialized-applications",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/control/behavioral-control",
+              "path": "/docs/chapters/control/behavioral-control",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/control/learning-based-control",
+              "path": "/docs/chapters/control/learning-based-control",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/control/motion-planning",
+              "path": "/docs/chapters/control/motion-planning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/intelligence/autonomous-learning",
+              "path": "/docs/chapters/intelligence/autonomous-learning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/intelligence/human-robot-interaction",
+              "path": "/docs/chapters/intelligence/human-robot-interaction",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/intelligence/planning-and-reasoning",
+              "path": "/docs/chapters/intelligence/planning-and-reasoning",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/introduction/foundations-of-physical-ai",
+              "path": "/docs/chapters/introduction/foundations-of-physical-ai",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/introduction/humanoid-robot-architecture",
+              "path": "/docs/chapters/introduction/humanoid-robot-architecture",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/introduction/simulation-environments",
+              "path": "/docs/chapters/introduction/simulation-environments",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/perception/computer-vision-for-robotics",
+              "path": "/docs/chapters/perception/computer-vision-for-robotics",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/perception/multi-modal-perception",
+              "path": "/docs/chapters/perception/multi-modal-perception",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "chapters/perception/sensor-integration",
+              "path": "/docs/chapters/perception/sensor-integration",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "course-materials/course-syllabus-template",
+              "path": "/docs/course-materials/course-syllabus-template"
+            },
+            {
+              "id": "educator-guides/applications/educator-guide",
+              "path": "/docs/educator-guides/applications/educator-guide"
+            },
+            {
+              "id": "educator-guides/control/educator-guide",
+              "path": "/docs/educator-guides/control/educator-guide"
+            },
+            {
+              "id": "educator-guides/intelligence/educator-guide",
+              "path": "/docs/educator-guides/intelligence/educator-guide"
+            },
+            {
+              "id": "educator-guides/introduction/educator-guide",
+              "path": "/docs/educator-guides/introduction/educator-guide"
+            },
+            {
+              "id": "educator-guides/perception/educator-guide",
+              "path": "/docs/educator-guides/perception/educator-guide"
+            },
+            {
+              "id": "exercises/applications/exercise-5.1-real-world-deployment",
+              "path": "/docs/exercises/applications/exercise-5.1-real-world-deployment"
+            },
+            {
+              "id": "exercises/applications/exercise-5.2-specialized-applications",
+              "path": "/docs/exercises/applications/exercise-5.2-specialized-applications"
+            },
+            {
+              "id": "exercises/applications/exercise-5.3-future-directions",
+              "path": "/docs/exercises/applications/exercise-5.3-future-directions"
+            },
+            {
+              "id": "exercises/control/exercise-3.1-motion-planning",
+              "path": "/docs/exercises/control/exercise-3.1-motion-planning"
+            },
+            {
+              "id": "exercises/control/exercise-3.2-behavioral-control",
+              "path": "/docs/exercises/control/exercise-3.2-behavioral-control"
+            },
+            {
+              "id": "exercises/control/exercise-3.3-learning-based-control",
+              "path": "/docs/exercises/control/exercise-3.3-learning-based-control"
+            },
+            {
+              "id": "exercises/intelligence/exercise-4.1-planning-and-reasoning",
+              "path": "/docs/exercises/intelligence/exercise-4.1-planning-and-reasoning"
+            },
+            {
+              "id": "exercises/intelligence/exercise-4.2-human-robot-interaction",
+              "path": "/docs/exercises/intelligence/exercise-4.2-human-robot-interaction"
+            },
+            {
+              "id": "exercises/intelligence/exercise-4.3-autonomous-learning",
+              "path": "/docs/exercises/intelligence/exercise-4.3-autonomous-learning"
+            },
+            {
+              "id": "exercises/introduction/exercise-1.1-basic-concepts",
+              "path": "/docs/exercises/introduction/exercise-1.1-basic-concepts"
+            },
+            {
+              "id": "exercises/introduction/exercise-1.2-robot-architecture",
+              "path": "/docs/exercises/introduction/exercise-1.2-robot-architecture"
+            },
+            {
+              "id": "exercises/introduction/exercise-1.3-simulation-setup",
+              "path": "/docs/exercises/introduction/exercise-1.3-simulation-setup"
+            },
+            {
+              "id": "exercises/introduction/README",
+              "path": "/docs/exercises/introduction/"
+            },
+            {
+              "id": "exercises/perception/exercise-2.1-sensor-integration",
+              "path": "/docs/exercises/perception/exercise-2.1-sensor-integration"
+            },
+            {
+              "id": "exercises/perception/exercise-2.2-computer-vision",
+              "path": "/docs/exercises/perception/exercise-2.2-computer-vision"
+            },
+            {
+              "id": "exercises/perception/exercise-2.3-multi-modal-perception",
+              "path": "/docs/exercises/perception/exercise-2.3-multi-modal-perception"
+            },
+            {
+              "id": "intro",
+              "path": "/docs/intro"
+            },
+            {
+              "id": "tutorial-basics/congratulations",
+              "path": "/docs/tutorial-basics/congratulations"
+            },
+            {
+              "id": "tutorial-basics/create-a-blog-post",
+              "path": "/docs/tutorial-basics/create-a-blog-post"
+            },
+            {
+              "id": "tutorial-basics/create-a-document",
+              "path": "/docs/tutorial-basics/create-a-document"
+            },
+            {
+              "id": "tutorial-basics/create-a-page",
+              "path": "/docs/tutorial-basics/create-a-page"
+            },
+            {
+              "id": "tutorial-basics/deploy-your-site",
+              "path": "/docs/tutorial-basics/deploy-your-site"
+            },
+            {
+              "id": "tutorial-basics/markdown-features",
+              "path": "/docs/tutorial-basics/markdown-features"
+            },
+            {
+              "id": "tutorial-extras/manage-docs-versions",
+              "path": "/docs/tutorial-extras/manage-docs-versions"
+            },
+            {
+              "id": "tutorial-extras/translate-your-site",
+              "path": "/docs/tutorial-extras/translate-your-site"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docsSidebar": {
+              "link": {
+                "path": "/docs/chapters/introduction/foundations-of-physical-ai",
+                "label": "Introduction"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

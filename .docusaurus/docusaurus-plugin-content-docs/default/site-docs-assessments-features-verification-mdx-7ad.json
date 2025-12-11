@@ -1,0 +1,15 @@
+{
+  "id": "assessments/features-verification",
+  "title": "Docusaurus Textbook Features Verification",
+  "description": "Search Functionality Test",
+  "source": "@site/docs/assessments/features-verification.mdx",
+  "sourceDirName": "assessments",
+  "slug": "/assessments/features-verification",
+  "permalink": "/docs/assessments/features-verification",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/assessments/features-verification.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

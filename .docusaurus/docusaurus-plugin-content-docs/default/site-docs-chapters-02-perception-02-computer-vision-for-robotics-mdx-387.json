@@ -1,0 +1,35 @@
+{
+  "id": "chapters/perception/computer-vision-for-robotics",
+  "title": "Lesson 2.2: Computer Vision for Robotics",
+  "description": "Object detection, recognition, and tracking in robotic contexts, depth estimation, and visual servoing for humanoid robots",
+  "source": "@site/docs/chapters/02-perception/02-computer-vision-for-robotics.mdx",
+  "sourceDirName": "chapters/02-perception",
+  "slug": "/chapters/perception/computer-vision-for-robotics",
+  "permalink": "/docs/chapters/perception/computer-vision-for-robotics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/chapters/02-perception/02-computer-vision-for-robotics.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Lesson 2.2: Computer Vision for Robotics",
+    "sidebar_label": "Computer Vision for Robotics",
+    "description": "Object detection, recognition, and tracking in robotic contexts, depth estimation, and visual servoing for humanoid robots",
+    "keywords": [
+      "computer vision",
+      "robotics vision",
+      "object detection",
+      "visual servoing"
+    ]
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Sensor Integration and Data Processing",
+    "permalink": "/docs/chapters/perception/sensor-integration"
+  },
+  "next": {
+    "title": "Multi-modal Perception",
+    "permalink": "/docs/chapters/perception/multi-modal-perception"
+  }
+}

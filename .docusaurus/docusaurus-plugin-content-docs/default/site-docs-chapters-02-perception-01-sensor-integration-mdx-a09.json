@@ -1,0 +1,36 @@
+{
+  "id": "chapters/perception/sensor-integration",
+  "title": "Lesson 2.1: Sensor Integration and Data Processing",
+  "description": "Understanding different types of sensors for humanoid robots, sensor fusion techniques, and real-time data processing",
+  "source": "@site/docs/chapters/02-perception/01-sensor-integration.mdx",
+  "sourceDirName": "chapters/02-perception",
+  "slug": "/chapters/perception/sensor-integration",
+  "permalink": "/docs/chapters/perception/sensor-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/chapters/02-perception/01-sensor-integration.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Lesson 2.1: Sensor Integration and Data Processing",
+    "sidebar_label": "Sensor Integration and Data Processing",
+    "description": "Understanding different types of sensors for humanoid robots, sensor fusion techniques, and real-time data processing",
+    "keywords": [
+      "robotics sensors",
+      "sensor fusion",
+      "data processing",
+      "imu",
+      "lidar"
+    ]
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Simulation Environments",
+    "permalink": "/docs/chapters/introduction/simulation-environments"
+  },
+  "next": {
+    "title": "Sensor Integration and Data Processing",
+    "permalink": "/docs/chapters/perception/sensor-integration"
+  }
+}

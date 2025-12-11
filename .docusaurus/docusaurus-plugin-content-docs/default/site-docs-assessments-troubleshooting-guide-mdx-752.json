@@ -1,0 +1,15 @@
+{
+  "id": "assessments/troubleshooting-guide",
+  "title": "Comprehensive Troubleshooting Guide for Physical AI & Humanoid Robotics Textbook",
+  "description": "General Setup Issues",
+  "source": "@site/docs/assessments/troubleshooting-guide.mdx",
+  "sourceDirName": "assessments",
+  "slug": "/assessments/troubleshooting-guide",
+  "permalink": "/docs/assessments/troubleshooting-guide",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/assessments/troubleshooting-guide.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

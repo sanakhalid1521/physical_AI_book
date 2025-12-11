@@ -1,0 +1,36 @@
+{
+  "id": "chapters/intelligence/planning-and-reasoning",
+  "title": "Lesson 4.1: Planning and Reasoning",
+  "description": "High-level planning algorithms, task planning, and reasoning systems that enable humanoid robots to perform complex, multi-step tasks",
+  "source": "@site/docs/chapters/04-intelligence/01-planning-and-reasoning.mdx",
+  "sourceDirName": "chapters/04-intelligence",
+  "slug": "/chapters/intelligence/planning-and-reasoning",
+  "permalink": "/docs/chapters/intelligence/planning-and-reasoning",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/chapters/04-intelligence/01-planning-and-reasoning.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Lesson 4.1: Planning and Reasoning",
+    "sidebar_label": "Planning and Reasoning",
+    "description": "High-level planning algorithms, task planning, and reasoning systems that enable humanoid robots to perform complex, multi-step tasks",
+    "keywords": [
+      "planning",
+      "reasoning",
+      "task planning",
+      "logic programming",
+      "AI reasoning"
+    ]
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Learning-Based Control",
+    "permalink": "/docs/chapters/control/learning-based-control"
+  },
+  "next": {
+    "title": "Planning and Reasoning",
+    "permalink": "/docs/chapters/intelligence/planning-and-reasoning"
+  }
+}

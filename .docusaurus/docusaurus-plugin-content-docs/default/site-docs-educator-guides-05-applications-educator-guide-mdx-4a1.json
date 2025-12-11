@@ -1,0 +1,15 @@
+{
+  "id": "educator-guides/applications/educator-guide",
+  "title": "Educator Guide: Chapter 5 - Advanced Applications and Integration",
+  "description": "Chapter Overview",
+  "source": "@site/docs/educator-guides/05-applications/educator-guide.mdx",
+  "sourceDirName": "educator-guides/05-applications",
+  "slug": "/educator-guides/applications/educator-guide",
+  "permalink": "/docs/educator-guides/applications/educator-guide",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/educator-guides/05-applications/educator-guide.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

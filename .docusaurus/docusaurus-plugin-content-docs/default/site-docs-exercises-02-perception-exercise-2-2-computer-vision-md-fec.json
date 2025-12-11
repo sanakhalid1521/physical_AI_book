@@ -1,0 +1,15 @@
+{
+  "id": "exercises/perception/exercise-2.2-computer-vision",
+  "title": "Exercise 2.2: Computer Vision for Robotics",
+  "description": "Objective",
+  "source": "@site/docs/exercises/02-perception/exercise-2.2-computer-vision.md",
+  "sourceDirName": "exercises/02-perception",
+  "slug": "/exercises/perception/exercise-2.2-computer-vision",
+  "permalink": "/docs/exercises/perception/exercise-2.2-computer-vision",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/02-perception/exercise-2.2-computer-vision.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

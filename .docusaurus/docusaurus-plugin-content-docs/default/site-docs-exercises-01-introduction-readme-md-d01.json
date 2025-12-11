@@ -1,0 +1,15 @@
+{
+  "id": "exercises/introduction/README",
+  "title": "Chapter 1 Exercises: Introduction to Physical AI and Humanoid Robotics",
+  "description": "This directory contains hands-on exercises for Chapter 1 of the Physical AI & Humanoid Robotics textbook.",
+  "source": "@site/docs/exercises/01-introduction/README.md",
+  "sourceDirName": "exercises/01-introduction",
+  "slug": "/exercises/introduction/",
+  "permalink": "/docs/exercises/introduction/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/01-introduction/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

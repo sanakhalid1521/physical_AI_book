@@ -1,0 +1,15 @@
+{
+  "id": "exercises/applications/exercise-5.1-real-world-deployment",
+  "title": "Exercise 5.1: Real-World Deployment Challenges",
+  "description": "Objective",
+  "source": "@site/docs/exercises/05-applications/exercise-5.1-real-world-deployment.md",
+  "sourceDirName": "exercises/05-applications",
+  "slug": "/exercises/applications/exercise-5.1-real-world-deployment",
+  "permalink": "/docs/exercises/applications/exercise-5.1-real-world-deployment",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/05-applications/exercise-5.1-real-world-deployment.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

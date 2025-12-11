@@ -1,0 +1,35 @@
+{
+  "id": "chapters/control/behavioral-control",
+  "title": "Lesson 3.2: Behavioral Control Systems",
+  "description": "Finite state machines, behavior trees, and hierarchical control architectures for managing complex robot behaviors",
+  "source": "@site/docs/chapters/03-control/02-behavioral-control.mdx",
+  "sourceDirName": "chapters/03-control",
+  "slug": "/chapters/control/behavioral-control",
+  "permalink": "/docs/chapters/control/behavioral-control",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/chapters/03-control/02-behavioral-control.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Lesson 3.2: Behavioral Control Systems",
+    "sidebar_label": "Behavioral Control Systems",
+    "description": "Finite state machines, behavior trees, and hierarchical control architectures for managing complex robot behaviors",
+    "keywords": [
+      "behavioral control",
+      "state machines",
+      "behavior trees",
+      "hierarchical control"
+    ]
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Motion Planning and Pathfinding",
+    "permalink": "/docs/chapters/control/motion-planning"
+  },
+  "next": {
+    "title": "Learning-Based Control",
+    "permalink": "/docs/chapters/control/learning-based-control"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "assessments/chapter-3-assessment",
+  "title": "Assessment Rubric: Chapter 3 - Decision Making and Control",
+  "description": "Learning Objectives Assessment",
+  "source": "@site/docs/assessments/chapter-3-assessment.mdx",
+  "sourceDirName": "assessments",
+  "slug": "/assessments/chapter-3-assessment",
+  "permalink": "/docs/assessments/chapter-3-assessment",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/assessments/chapter-3-assessment.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

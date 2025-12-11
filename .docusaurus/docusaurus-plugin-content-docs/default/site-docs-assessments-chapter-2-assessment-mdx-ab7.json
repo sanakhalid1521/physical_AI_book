@@ -1,0 +1,15 @@
+{
+  "id": "assessments/chapter-2-assessment",
+  "title": "Assessment Rubric: Chapter 2 - Perception Systems for Humanoid Robots",
+  "description": "Learning Objectives Assessment",
+  "source": "@site/docs/assessments/chapter-2-assessment.mdx",
+  "sourceDirName": "assessments",
+  "slug": "/assessments/chapter-2-assessment",
+  "permalink": "/docs/assessments/chapter-2-assessment",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/assessments/chapter-2-assessment.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

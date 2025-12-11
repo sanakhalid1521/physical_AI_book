@@ -1,0 +1,32 @@
+{
+  "id": "chapters/applications/future-directions",
+  "title": "Lesson 5.3: Future Directions and Ethics",
+  "description": "Emerging trends in humanoid robotics, ethical considerations, and societal impact of advanced robotic systems",
+  "source": "@site/docs/chapters/05-applications/03-future-directions.mdx",
+  "sourceDirName": "chapters/05-applications",
+  "slug": "/chapters/applications/future-directions",
+  "permalink": "/docs/chapters/applications/future-directions",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/chapters/05-applications/03-future-directions.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Lesson 5.3: Future Directions and Ethics",
+    "sidebar_label": "Future Directions and Ethics",
+    "description": "Emerging trends in humanoid robotics, ethical considerations, and societal impact of advanced robotic systems",
+    "keywords": [
+      "future robotics",
+      "ethics",
+      "societal impact",
+      "emerging trends",
+      "robot ethics"
+    ]
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Specialized Applications",
+    "permalink": "/docs/chapters/applications/specialized-applications"
+  }
+}

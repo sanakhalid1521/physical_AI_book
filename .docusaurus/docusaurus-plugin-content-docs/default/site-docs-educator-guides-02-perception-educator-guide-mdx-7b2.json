@@ -1,0 +1,15 @@
+{
+  "id": "educator-guides/perception/educator-guide",
+  "title": "Educator Guide: Chapter 2 - Perception Systems for Humanoid Robots",
+  "description": "Chapter Overview",
+  "source": "@site/docs/educator-guides/02-perception/educator-guide.mdx",
+  "sourceDirName": "educator-guides/02-perception",
+  "slug": "/educator-guides/perception/educator-guide",
+  "permalink": "/docs/educator-guides/perception/educator-guide",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/educator-guides/02-perception/educator-guide.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

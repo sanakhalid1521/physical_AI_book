@@ -1,0 +1,15 @@
+{
+  "id": "exercises/perception/exercise-2.3-multi-modal-perception",
+  "title": "Exercise 2.3: Multi-modal Perception",
+  "description": "Objective",
+  "source": "@site/docs/exercises/02-perception/exercise-2.3-multi-modal-perception.md",
+  "sourceDirName": "exercises/02-perception",
+  "slug": "/exercises/perception/exercise-2.3-multi-modal-perception",
+  "permalink": "/docs/exercises/perception/exercise-2.3-multi-modal-perception",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/02-perception/exercise-2.3-multi-modal-perception.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

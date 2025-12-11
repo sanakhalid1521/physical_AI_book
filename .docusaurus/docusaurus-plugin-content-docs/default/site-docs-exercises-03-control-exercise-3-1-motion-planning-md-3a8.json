@@ -1,0 +1,15 @@
+{
+  "id": "exercises/control/exercise-3.1-motion-planning",
+  "title": "Exercise 3.1: Motion Planning and Pathfinding",
+  "description": "Objective",
+  "source": "@site/docs/exercises/03-control/exercise-3.1-motion-planning.md",
+  "sourceDirName": "exercises/03-control",
+  "slug": "/exercises/control/exercise-3.1-motion-planning",
+  "permalink": "/docs/exercises/control/exercise-3.1-motion-planning",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/03-control/exercise-3.1-motion-planning.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

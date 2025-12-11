@@ -1,0 +1,15 @@
+{
+  "id": "exercises/introduction/exercise-1.1-basic-concepts",
+  "title": "Exercise 1.1: Basic Physical AI Concepts",
+  "description": "Objective",
+  "source": "@site/docs/exercises/01-introduction/exercise-1.1-basic-concepts.md",
+  "sourceDirName": "exercises/01-introduction",
+  "slug": "/exercises/introduction/exercise-1.1-basic-concepts",
+  "permalink": "/docs/exercises/introduction/exercise-1.1-basic-concepts",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/exercises/01-introduction/exercise-1.1-basic-concepts.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}
